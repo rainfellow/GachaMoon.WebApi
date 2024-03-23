@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\GachaMoon.Services.Abstractions\GachaMoon.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\GachaMoon.Database\GachaMoon.Database.csproj" />
+  </ItemGroup>
+
+  <ItemGroup> 
+    <Content Include="Static\*.*"> 
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory> 
+    </Content>   
+  </ItemGroup>
+</Project>

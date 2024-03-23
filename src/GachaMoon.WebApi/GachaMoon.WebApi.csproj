@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.7" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="8.3.0-preview.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GachaMoon.Database.Migrations\GachaMoon.Database.Migrations.csproj" />
+    <ProjectReference Include="..\GachaMoon.Utilities\GachaMoon.Utilities.csproj" />
+    <ProjectReference Include="..\GachaMoon.Application\GachaMoon.Application.csproj" />
+    <ProjectReference Include="..\GachaMoon.Services\GachaMoon.Services.csproj" />
+    <ProjectReference Include="..\GachaMoon.Services.Abstractions\GachaMoon.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\GachaMoon.Configurations\GachaMoon.Configurations.csproj" />
+    <ProjectReference Include="..\GachaMoon.Configurations\GachaMoon.Configurations.csproj" />
+  </ItemGroup>
+
+</Project>

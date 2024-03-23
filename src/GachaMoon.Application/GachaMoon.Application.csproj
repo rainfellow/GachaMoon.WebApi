@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="11.5.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\GachaMoon.Common\GachaMoon.Common.csproj" />
+        <ProjectReference Include="..\GachaMoon.MediatR.Common\GachaMoon.MediatR.Common.csproj" />
+        <ProjectReference Include="..\GachaMoon.Services.Abstractions\GachaMoon.Services.Abstractions.csproj" />
+        <ProjectReference Include="..\GachaMoon.Database\GachaMoon.Database.csproj" />
+    </ItemGroup>
+
+</Project>

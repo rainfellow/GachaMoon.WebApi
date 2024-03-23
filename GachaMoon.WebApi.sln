@@ -1,0 +1,100 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7C1F927B-0075-4B49-837F-A15E7990F99C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Application", "src\GachaMoon.Application\GachaMoon.Application.csproj", "{694F4ED8-562A-4B5B-917E-3727296D9369}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Common", "src\GachaMoon.Common\GachaMoon.Common.csproj", "{80053BE1-100E-4543-977C-79E0EE72B7F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Database", "src\GachaMoon.Database\GachaMoon.Database.csproj", "{CDDBD894-FA42-4D16-B23C-6C31FF705B85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Database.Migrations", "src\GachaMoon.Database.Migrations\GachaMoon.Database.Migrations.csproj", "{ABBBF315-32E9-4D1C-869C-20949B5CAF8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Domain", "src\GachaMoon.Domain\GachaMoon.Domain.csproj", "{DAD90A1C-AC57-47AC-8CA9-2D00659A1C5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Services", "src\GachaMoon.Services\GachaMoon.Services.csproj", "{69997FC5-6ECA-4996-9CD7-7493274B3BEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Services.Abstractions", "src\GachaMoon.Services.Abstractions\GachaMoon.Services.Abstractions.csproj", "{22F81DBE-064E-466A-8D41-D70AD15D73D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Utilities", "src\GachaMoon.Utilities\GachaMoon.Utilities.csproj", "{4FF533DC-A165-41A0-A213-046AECACC535}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.WebApi", "src\GachaMoon.WebApi\GachaMoon.WebApi.csproj", "{D029B5E4-2BFA-40C5-BCD0-D66525DB9DA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.MediatR.Common", "src\GachaMoon.MediatR.Common\GachaMoon.MediatR.Common.csproj", "{EEFA3530-B45B-4C15-8C00-99C52CEE4C2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Configurations", "src\GachaMoon.Configurations\GachaMoon.Configurations.csproj", "{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{694F4ED8-562A-4B5B-917E-3727296D9369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{694F4ED8-562A-4B5B-917E-3727296D9369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{694F4ED8-562A-4B5B-917E-3727296D9369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{694F4ED8-562A-4B5B-917E-3727296D9369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80053BE1-100E-4543-977C-79E0EE72B7F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80053BE1-100E-4543-977C-79E0EE72B7F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80053BE1-100E-4543-977C-79E0EE72B7F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80053BE1-100E-4543-977C-79E0EE72B7F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDDBD894-FA42-4D16-B23C-6C31FF705B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDDBD894-FA42-4D16-B23C-6C31FF705B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDDBD894-FA42-4D16-B23C-6C31FF705B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDDBD894-FA42-4D16-B23C-6C31FF705B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABBBF315-32E9-4D1C-869C-20949B5CAF8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABBBF315-32E9-4D1C-869C-20949B5CAF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABBBF315-32E9-4D1C-869C-20949B5CAF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABBBF315-32E9-4D1C-869C-20949B5CAF8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD90A1C-AC57-47AC-8CA9-2D00659A1C5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD90A1C-AC57-47AC-8CA9-2D00659A1C5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD90A1C-AC57-47AC-8CA9-2D00659A1C5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD90A1C-AC57-47AC-8CA9-2D00659A1C5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69997FC5-6ECA-4996-9CD7-7493274B3BEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69997FC5-6ECA-4996-9CD7-7493274B3BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69997FC5-6ECA-4996-9CD7-7493274B3BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69997FC5-6ECA-4996-9CD7-7493274B3BEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F81DBE-064E-466A-8D41-D70AD15D73D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F81DBE-064E-466A-8D41-D70AD15D73D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F81DBE-064E-466A-8D41-D70AD15D73D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F81DBE-064E-466A-8D41-D70AD15D73D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FF533DC-A165-41A0-A213-046AECACC535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF533DC-A165-41A0-A213-046AECACC535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF533DC-A165-41A0-A213-046AECACC535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF533DC-A165-41A0-A213-046AECACC535}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D029B5E4-2BFA-40C5-BCD0-D66525DB9DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D029B5E4-2BFA-40C5-BCD0-D66525DB9DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D029B5E4-2BFA-40C5-BCD0-D66525DB9DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D029B5E4-2BFA-40C5-BCD0-D66525DB9DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEFA3530-B45B-4C15-8C00-99C52CEE4C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEFA3530-B45B-4C15-8C00-99C52CEE4C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEFA3530-B45B-4C15-8C00-99C52CEE4C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEFA3530-B45B-4C15-8C00-99C52CEE4C2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B49107A-D318-4873-A88D-F01CD002647B}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{694F4ED8-562A-4B5B-917E-3727296D9369} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{80053BE1-100E-4543-977C-79E0EE72B7F6} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{CDDBD894-FA42-4D16-B23C-6C31FF705B85} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{ABBBF315-32E9-4D1C-869C-20949B5CAF8D} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{DAD90A1C-AC57-47AC-8CA9-2D00659A1C5C} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{69997FC5-6ECA-4996-9CD7-7493274B3BEA} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{22F81DBE-064E-466A-8D41-D70AD15D73D3} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{4FF533DC-A165-41A0-A213-046AECACC535} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{D029B5E4-2BFA-40C5-BCD0-D66525DB9DA8} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{EEFA3530-B45B-4C15-8C00-99C52CEE4C2E} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+	EndGlobalSection
+EndGlobal

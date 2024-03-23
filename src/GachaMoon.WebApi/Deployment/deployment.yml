@@ -1,0 +1,54 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gachamoon-webapi
+  namespace: gachamoon
+  labels:
+    app.kubernetes.io/name: gachamoon-webapi
+    app.kubernetes.io/part-of: gachamoon
+    app.kubernetes.io/component: webapi
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gachamoon-webapi
+      app.kubernetes.io/part-of: gachamoon
+      app.kubernetes.io/component: webapi
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: gachamoon-webapi
+        app.kubernetes.io/part-of: gachamoon
+        app.kubernetes.io/component: webapi
+    spec:
+      imagePullSecrets:
+        - name: k8s-registry-creds
+      containers:
+        - name: gachamoon-webapi
+          image: 185.241.195.3:5000/gachamoon-webapi/gachamoon-webapi:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300M
+            limits:
+              cpu: 300m
+              memory: 300M
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+          volumeMounts:
+            - name: secrets
+              mountPath: "app/secrets"
+              readOnly: true
+      volumes:
+        - name: secrets
+          projected:
+            sources:
+            - secret:
+                name: gachamoon-webapi
+                items:
+                  - key: app.json
+                    path: app.json
