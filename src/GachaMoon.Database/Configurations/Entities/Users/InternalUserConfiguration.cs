@@ -1,3 +1,4 @@
+using GachaMoon.Database.Extensions;
 using GachaMoon.Domain.Users;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,6 +15,7 @@ public class InternalUserConfiguration : ConfigurationBase<InternalUser, long>
             .IsRequired();
 
         builder.HasIndex(x => x.AccountId)
+            .WhereNotDeleted()
             .IsUnique();
 
         builder.Property(x => x.Email)

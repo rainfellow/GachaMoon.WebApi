@@ -1,3 +1,4 @@
+using GachaMoon.Database.Extensions;
 using GachaMoon.Domain.Accounts;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -26,6 +27,6 @@ public class AccountCharacterConfiguration : ConfigurationBase<AccountCharacter>
             .WithMany() // Assuming there is a navigation property for Character
             .HasForeignKey(x => x.CharacterId);
 
-        builder.HasIndex(x => new { x.AccountId, x.CharacterId }).IsUnique();
+        builder.HasIndex(x => new { x.AccountId, x.CharacterId }).WhereNotDeleted().IsUnique();
     }
 }

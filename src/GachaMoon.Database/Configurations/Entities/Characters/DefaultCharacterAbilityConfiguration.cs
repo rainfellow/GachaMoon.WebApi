@@ -1,3 +1,4 @@
+using GachaMoon.Database.Extensions;
 using GachaMoon.Domain.Characters;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -24,6 +25,6 @@ public class DefaultCharacterAbilityConfiguration : ConfigurationBase<DefaultCha
             .HasForeignKey(x => x.CharacterAbilityId);
 
         // Add composite index for CharacterId and AbilityType
-        builder.HasIndex(x => new { x.CharacterId, x.AbilityType }).IsUnique();
+        builder.HasIndex(x => new { x.CharacterId, x.AbilityType }).WhereNotDeleted().IsUnique();
     }
 }

@@ -1,10 +1,13 @@
 using GachaMoon.Database.Configurations.Entities.Accounts;
 using GachaMoon.Database.Configurations.Entities.Banners;
 using GachaMoon.Database.Configurations.Entities.Characters;
+using GachaMoon.Database.Configurations.Entities.Promocodes;
 using GachaMoon.Database.Configurations.Entities.Users;
 using GachaMoon.Domain.Accounts;
 using GachaMoon.Domain.Banners;
 using GachaMoon.Domain.Characters;
+using GachaMoon.Domain.Npcs;
+using GachaMoon.Domain.Promocodes;
 using GachaMoon.Domain.Users;
 using GachaMoon.Services.Abstractions.Time;
 using Microsoft.EntityFrameworkCore;
@@ -87,6 +90,9 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new CharacterAbilityConfiguration());
         modelBuilder.ApplyConfiguration(new CharacterBaseStatsConfiguration());
         modelBuilder.ApplyConfiguration(new DefaultCharacterAbilityConfiguration());
+
+        modelBuilder.ApplyConfiguration(new PromocodeConfiguration());
+        modelBuilder.ApplyConfiguration(new PromocodeHistoryConfiguration());
     }
 
 #nullable disable
@@ -107,6 +113,13 @@ public class ApplicationDbContext : DbContext
     public DbSet<CharacterAbility> CharacterAbilities { get; set; }
     public DbSet<CharacterBaseStats> CharacterBaseStats { get; set; }
     public DbSet<DefaultCharacterAbility> DefaultCharacterAbilities { get; set; }
+
+    public DbSet<Promocode> Promocodes { get; set; }
+    public DbSet<PromocodeHistory> PromocodeHistory { get; set; }
+
+    public DbSet<NpcCharacter> NpcCharacters { get; set; }
+    public DbSet<NpcCharacterAbility> NpcCharacterAbilities { get; set; }
+    public DbSet<NpcCharacterBaseStats> NpcCharacterBaseStats { get; set; }
 
 #nullable enable
 }

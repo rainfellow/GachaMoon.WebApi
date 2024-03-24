@@ -1,3 +1,4 @@
+using GachaMoon.Database.Extensions;
 using GachaMoon.Domain.Accounts;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -24,6 +25,6 @@ public class AccountCharacterAbilityConfiguration : ConfigurationBase<AccountCha
             .HasForeignKey(x => x.CharacterAbilityId);
 
         // Add index for AbilityType and AccountCharacter
-        builder.HasIndex(x => new { x.AbilityType, x.AccountCharacter });
+        builder.HasIndex(x => new { x.AbilityType, x.AccountCharacterId }).WhereNotDeleted().IsUnique();
     }
 }

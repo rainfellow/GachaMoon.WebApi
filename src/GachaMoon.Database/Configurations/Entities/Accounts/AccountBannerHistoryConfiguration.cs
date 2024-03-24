@@ -1,3 +1,4 @@
+using GachaMoon.Database.Extensions;
 using GachaMoon.Domain.Accounts;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,7 +12,7 @@ public class AccountBannerHistoryConfiguration : ConfigurationBase<AccountBanner
         builder.Property(x => x.BannerId).IsRequired();
         builder.Property(x => x.Result).IsRequired();
 
-        builder.HasIndex(x => new { x.AccountId, x.BannerId }).IsUnique();
+        builder.HasIndex(x => new { x.AccountId, x.BannerId }).WhereNotDeleted().IsUnique();
 
         builder.HasOne(x => x.Account)
             .WithMany() // Assuming there is a navigation property for Account

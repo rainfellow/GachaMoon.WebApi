@@ -1,4 +1,5 @@
 // src/GachaMoon.Database/Configurations/Entities/Characters/CharacterBaseStatsConfiguration.cs
+using GachaMoon.Database.Extensions;
 using GachaMoon.Domain.Characters;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,7 +16,7 @@ public class CharacterBaseStatsConfiguration : ConfigurationBase<CharacterBaseSt
         builder.Property(x => x.Defence).IsRequired();
         builder.Property(x => x.Health).IsRequired();
 
-        builder.HasIndex(x => new { x.CharacterId, x.CharacterLevel }).IsUnique();
+        builder.HasIndex(x => new { x.CharacterId, x.CharacterLevel }).WhereNotDeleted().IsUnique();
 
         builder.HasOne(x => x.Character)
             .WithMany()

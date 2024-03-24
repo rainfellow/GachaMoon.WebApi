@@ -1,3 +1,4 @@
+using GachaMoon.Database.Extensions;
 using GachaMoon.Domain.Users;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,6 +21,7 @@ public class ExternalUserConfiguration : ConfigurationBase<ExternalUser>
             .IsRequired();
 
         builder.HasIndex(u => new { u.UserType, u.AccountId })
+            .WhereNotDeleted()
             .IsUnique();
 
         builder.HasOne(x => x.Account)
