@@ -9,7 +9,8 @@ public class PremiumInventoryConfiguration : ConfigurationBase<PremiumInventory>
         base.ApplyConfiguration(builder);
 
         builder.Property(x => x.AccountId).IsRequired();
-        builder.Property(x => x.PremiumCurrency).IsRequired();
+        builder.Property(x => x.PremiumCurrencyAmount).IsRequired();
+        builder.Property(x => x.WildcardSkillItemCount).IsRequired();
 
         builder.HasOne(x => x.Account)
             .WithMany() // Assuming there is a navigation property for Account

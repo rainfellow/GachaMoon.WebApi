@@ -13,7 +13,7 @@ public class BannerCharacterConfiguration : ConfigurationBase<BannerCharacter>
 
         // Add foreign key relationship to Banner using BannerId
         builder.HasOne(x => x.Banner)
-            .WithMany()
+            .WithMany(x => x.BannerCharacters)
             .HasForeignKey(x => x.BannerId);
 
         // Add foreign key relationship to Character using CharacterId

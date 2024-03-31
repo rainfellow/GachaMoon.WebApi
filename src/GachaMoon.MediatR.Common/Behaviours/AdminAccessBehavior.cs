@@ -18,8 +18,8 @@ public class AdminAccessBehavior<TRequest, TResponse> : IPipelineBehavior<TReque
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        _dbContext.InternalUsers
-            .ThrowIfUserNotAdmin(request.UserId);
+        _dbContext.Accounts
+            .ThrowIfUserNotAdmin(request.AccountId);
 
         return await next();
     }

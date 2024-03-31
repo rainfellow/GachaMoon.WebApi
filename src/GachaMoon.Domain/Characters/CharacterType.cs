@@ -4,5 +4,7 @@ public enum CharacterType
 {
     None,
     Destruction,
-    Protection
+    Protection,
+    Creation,
+    Trickery,
 }

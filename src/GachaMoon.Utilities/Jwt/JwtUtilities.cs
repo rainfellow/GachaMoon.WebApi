@@ -30,7 +30,9 @@ public static class JwtUtilities
     {
         var claims = new List<Claim>()
         {
-            new Claim(JwtRegisteredClaimNames.UniqueName, userData.UserId.ToString(CultureInfo.InvariantCulture)),
+            new Claim(JwtRegisteredClaimNames.UniqueName, userData.AccountId.ToString(CultureInfo.InvariantCulture)),
+            new Claim(UserClaims.UserIdClaim, userData.UserId.ToString(CultureInfo.InvariantCulture)),
+            new Claim(UserClaims.IsInternalUserClaim, userData.IsInternalUser.ToString(CultureInfo.InvariantCulture)),
             new Claim(ClaimTypes.Role, ClaimsIdentity.DefaultRoleClaimType),
             new Claim(UserClaims.IsAdminClaim, userData.IsAdmin.ToString(CultureInfo.InvariantCulture))
         };
@@ -38,7 +40,7 @@ public static class JwtUtilities
         return new ClaimsIdentity(claims);
     }
 
-    public static bool TryGetIdFromToken(string token, JwtOptions options, out long? userId)
+    public static bool TryGetIdFromToken(string token, JwtOptions options, out long? accountId)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(options.Key);
@@ -55,7 +57,7 @@ public static class JwtUtilities
             }, out var validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
-            userId = long.Parse(
+            accountId = long.Parse(
                 jwtToken.Claims
                     .First(x => x.Type == JwtRegisteredClaimNames.UniqueName).Value,
                 CultureInfo.InvariantCulture);
@@ -64,7 +66,7 @@ public static class JwtUtilities
         }
         catch
         {
-            userId = null;
+            accountId = null;
             return false;
         }
     }

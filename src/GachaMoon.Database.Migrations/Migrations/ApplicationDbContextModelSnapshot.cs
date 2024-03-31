@@ -117,6 +117,12 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Property<int>("RollsToLegendary")
                         .HasColumnType("integer");
 
+                    b.Property<int>("TotalEpicRolls")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TotalLegendaryRolls")
+                        .HasColumnType("integer");
+
                     b.Property<int>("TotalRolls")
                         .HasColumnType("integer");
 
@@ -241,11 +247,14 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Property<Instant?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PremiumCurrency")
+                    b.Property<int>("PremiumCurrencyAmount")
                         .HasColumnType("integer");
 
                     b.Property<Instant>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("WildcardSkillItemCount")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -346,6 +355,71 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Characters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CharacterType = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Name = "Ромихи",
+                            Rarity = 2,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CharacterType = 2,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Name = "Шувидор",
+                            Rarity = 2,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CharacterType = 4,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Name = "Пациент 163",
+                            Rarity = 2,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CharacterType = 3,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Name = "Чехов",
+                            Rarity = 1,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CharacterType = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Name = "Черная Мамба",
+                            Rarity = 1,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CharacterType = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Name = "Яна Цист",
+                            Rarity = 1,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CharacterType = 4,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Name = "Кедонап",
+                            Rarity = 1,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        });
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Characters.CharacterAbility", b =>
@@ -355,6 +429,9 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AbilityRange")
+                        .HasColumnType("integer");
 
                     b.Property<int>("AbilityTarget")
                         .HasColumnType("integer");
@@ -384,6 +461,63 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CharacterAbilities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            AbilityRange = 1,
+                            AbilityTarget = 3,
+                            AbilityType = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Description = "Эта атака является затычкой, и не должна появляться у персонажа.",
+                            Name = "Placeholder: basic attack",
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            AbilityRange = 1,
+                            AbilityTarget = 3,
+                            AbilityType = 2,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Description = "Эта атака является затычкой, и не должна появляться у персонажа.",
+                            Name = "Placeholder: special attack",
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            AbilityRange = 2,
+                            AbilityTarget = 3,
+                            AbilityType = 3,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Description = "Эта атака является затычкой, и не должна появляться у персонажа.",
+                            Name = "Placeholder: ultimate attack",
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            AbilityRange = 0,
+                            AbilityTarget = 0,
+                            AbilityType = 4,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Description = "Это умение является затычкой, и не должно появляться у персонажа.",
+                            Name = "Placeholder: passive skill",
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            AbilityRange = 1,
+                            AbilityTarget = 3,
+                            AbilityType = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Description = "Бросает сюрикен в указанного противника, нанося урон в зависимости от силы атаки персонажа.",
+                            Name = "Бросок сюрикена",
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        });
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Characters.CharacterBaseStats", b =>
@@ -425,6 +559,85 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .HasFilter("\"DeletedAt\" is NULL");
 
                     b.ToTable("CharacterBaseStats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Attack = 150,
+                            CharacterId = 1L,
+                            CharacterLevel = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Defence = 80,
+                            Health = 100,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Attack = 100,
+                            CharacterId = 2L,
+                            CharacterLevel = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Defence = 140,
+                            Health = 100,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Attack = 160,
+                            CharacterId = 3L,
+                            CharacterLevel = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Defence = 70,
+                            Health = 100,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Attack = 60,
+                            CharacterId = 4L,
+                            CharacterLevel = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Defence = 100,
+                            Health = 140,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Attack = 140,
+                            CharacterId = 5L,
+                            CharacterLevel = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Defence = 50,
+                            Health = 90,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Attack = 120,
+                            CharacterId = 6L,
+                            CharacterLevel = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Defence = 70,
+                            Health = 100,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            Attack = 130,
+                            CharacterId = 7L,
+                            CharacterLevel = 1,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            Defence = 90,
+                            Health = 70,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        });
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Characters.DefaultCharacterAbility", b =>
@@ -462,6 +675,260 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .HasFilter("\"DeletedAt\" is NULL");
 
                     b.ToTable("DefaultCharacterAbilities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            AbilityType = 1,
+                            CharacterAbilityId = 1L,
+                            CharacterId = 1L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            AbilityType = 2,
+                            CharacterAbilityId = 2L,
+                            CharacterId = 1L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            AbilityType = 3,
+                            CharacterAbilityId = 3L,
+                            CharacterId = 1L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            AbilityType = 4,
+                            CharacterAbilityId = 4L,
+                            CharacterId = 1L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            AbilityType = 1,
+                            CharacterAbilityId = 1L,
+                            CharacterId = 2L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            AbilityType = 2,
+                            CharacterAbilityId = 2L,
+                            CharacterId = 2L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            AbilityType = 3,
+                            CharacterAbilityId = 3L,
+                            CharacterId = 2L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            AbilityType = 4,
+                            CharacterAbilityId = 4L,
+                            CharacterId = 2L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            AbilityType = 1,
+                            CharacterAbilityId = 1L,
+                            CharacterId = 3L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            AbilityType = 2,
+                            CharacterAbilityId = 2L,
+                            CharacterId = 3L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            AbilityType = 3,
+                            CharacterAbilityId = 3L,
+                            CharacterId = 3L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            AbilityType = 4,
+                            CharacterAbilityId = 4L,
+                            CharacterId = 3L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            AbilityType = 1,
+                            CharacterAbilityId = 1L,
+                            CharacterId = 4L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            AbilityType = 2,
+                            CharacterAbilityId = 2L,
+                            CharacterId = 4L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            AbilityType = 3,
+                            CharacterAbilityId = 3L,
+                            CharacterId = 4L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            AbilityType = 4,
+                            CharacterAbilityId = 4L,
+                            CharacterId = 4L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            AbilityType = 1,
+                            CharacterAbilityId = 1L,
+                            CharacterId = 5L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            AbilityType = 2,
+                            CharacterAbilityId = 2L,
+                            CharacterId = 5L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            AbilityType = 3,
+                            CharacterAbilityId = 3L,
+                            CharacterId = 5L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 20L,
+                            AbilityType = 4,
+                            CharacterAbilityId = 4L,
+                            CharacterId = 5L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 21L,
+                            AbilityType = 1,
+                            CharacterAbilityId = 5L,
+                            CharacterId = 6L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 22L,
+                            AbilityType = 2,
+                            CharacterAbilityId = 2L,
+                            CharacterId = 6L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 23L,
+                            AbilityType = 3,
+                            CharacterAbilityId = 3L,
+                            CharacterId = 6L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 24L,
+                            AbilityType = 4,
+                            CharacterAbilityId = 4L,
+                            CharacterId = 6L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 25L,
+                            AbilityType = 1,
+                            CharacterAbilityId = 1L,
+                            CharacterId = 7L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 26L,
+                            AbilityType = 2,
+                            CharacterAbilityId = 2L,
+                            CharacterId = 7L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 27L,
+                            AbilityType = 3,
+                            CharacterAbilityId = 3L,
+                            CharacterId = 7L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 28L,
+                            AbilityType = 4,
+                            CharacterAbilityId = 4L,
+                            CharacterId = 7L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        });
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Npcs.NpcCharacter", b =>
@@ -670,6 +1137,10 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
+                    b.HasIndex("UserType", "Identifier")
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" is NULL");
+
                     b.ToTable("ExternalUsers");
                 });
 
@@ -794,7 +1265,7 @@ namespace GachaMoon.Database.Migrations.Migrations
             modelBuilder.Entity("GachaMoon.Domain.Banners.BannerCharacter", b =>
                 {
                     b.HasOne("GachaMoon.Domain.Banners.Banner", "Banner")
-                        .WithMany()
+                        .WithMany("BannerCharacters")
                         .HasForeignKey("BannerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -909,6 +1380,11 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Banners.Banner", b =>
+                {
+                    b.Navigation("BannerCharacters");
                 });
 #pragma warning restore 612, 618
         }

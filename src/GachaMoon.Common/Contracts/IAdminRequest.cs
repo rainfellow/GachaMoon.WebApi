@@ -1,5 +1,5 @@
 namespace GachaMoon.Common.Contracts;
 
-public interface IAdminRequest : IUserIdRequest
+public interface IAdminRequest : IAccountRequest
 {
 }

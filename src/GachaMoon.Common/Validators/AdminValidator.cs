@@ -7,6 +7,6 @@ public class AdminValidator : AbstractValidator<IAdminRequest>
 {
     public AdminValidator()
     {
-        Include(new UserIdValidator());
+        Include(new AccountValidator());
     }
 }

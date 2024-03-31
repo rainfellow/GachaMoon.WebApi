@@ -1,4 +1,5 @@
 using GachaMoon.Common.Query;
+using GachaMoon.Domain.Accounts;
 using GachaMoon.Domain.Users;
 using GachaMoon.Utilities.Formatted;
 
@@ -12,18 +13,18 @@ public static class UsersExtensions
             .Where(x => x.Email == email.Value);
     }
 
-    public static IQueryable<InternalUser> WhereUserIsAdmin(this IQueryable<InternalUser> query,
-        long userId)
+    public static IQueryable<Account> WhereUserIsAdmin(this IQueryable<Account> query,
+        long accountId)
     {
         return query
             .IsNotDeleted()
-            .Where(x => x.Id == userId && false); //todo admin accounts
+            .Where(x => x.Id == accountId && x.AccountType == AccountType.Admin);
     }
 
-    public static void ThrowIfUserNotAdmin(this IQueryable<InternalUser> query,
-        long userId)
+    public static void ThrowIfUserNotAdmin(this IQueryable<Account> query,
+        long accountId)
     {
-        var exists = query.WhereUserIsAdmin(userId)
+        var exists = query.WhereUserIsAdmin(accountId)
             .Any();
 
         if (!exists)

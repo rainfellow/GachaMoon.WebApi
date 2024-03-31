@@ -11,4 +11,6 @@ public class AccountBannerStats : SoftDeleteEntityBase<long>
     public int TotalRolls { get; set; }
     public int RollsToLegendary { get; set; }
     public int RollsToEpic { get; set; }
+    public int TotalEpicRolls { get; set; }
+    public int TotalLegendaryRolls { get; set; }
 }

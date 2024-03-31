@@ -24,6 +24,10 @@ public class ExternalUserConfiguration : ConfigurationBase<ExternalUser>
             .WhereNotDeleted()
             .IsUnique();
 
+        builder.HasIndex(u => new { u.UserType, u.Identifier })
+            .WhereNotDeleted()
+            .IsUnique();
+
         builder.HasOne(x => x.Account)
             .WithMany() // Assuming there is a navigation property for Account
             .HasForeignKey(x => x.AccountId);

@@ -7,4 +7,6 @@ public class Banner : SoftDeleteEntityBase<long>
 {
     public string Title { get; set; } = default!;
     public BannerType Type { get; set; } = BannerType.None;
+
+    public virtual ICollection<BannerCharacter> BannerCharacters { get; set; } = new HashSet<BannerCharacter>();
 }

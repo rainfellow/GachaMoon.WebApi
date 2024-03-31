@@ -10,9 +10,10 @@ services:
       POSTGRES_DB: ${DB_DATABASE}
       PGDATA: /var/lib/postgresql/data/${DB_DATABASE}/
     ports:
-      - "5432:5432"
+      - "5433:5433"
     volumes:
-      - gachamoon-pg-data-volume:/var/lib/postgresql/data/${DB_DATABASE}
+      - gachamoon-pg-data-volume:/var/lib/postgresql/data/${DB_DATABASE}  
+    command: -p 5433
 
   api:
     container_name: gachamoon-api
@@ -20,7 +21,7 @@ services:
       context: ../..
       dockerfile: src/GachaMoon.WebApi/Dockerfile
     environment:
-      ConnectionStrings__DefaultConnection: "Host=${DB_HOST};Database=${DB_DATABASE};Username=${DB_USERNAME};Password=${DB_PASSWORD}"
+      ConnectionStrings__DefaultConnection: "Host=${DB_HOST}Port=${DB_PORT};Database=${DB_DATABASE};Username=${DB_USERNAME};Password=${DB_PASSWORD}"
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: "http://+:8080"
     volumes:

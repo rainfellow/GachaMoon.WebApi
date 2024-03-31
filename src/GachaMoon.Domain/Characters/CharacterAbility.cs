@@ -8,4 +8,5 @@ public class CharacterAbility : SoftDeleteEntityBase<long>
     public string Description { get; set; } = default!;
     public AbilityType AbilityType { get; set; }
     public AbilityTarget AbilityTarget { get; set; }
+    public AbilityRange AbilityRange { get; set; }
 }

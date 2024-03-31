@@ -1,5 +1,6 @@
 using System.Globalization;
 using GachaMoon.Common.Exceptions.Login;
+using GachaMoon.Utilities.Constants;
 using GachaMoon.WebApi.Common;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -15,10 +16,22 @@ public abstract class ApiControllerBase : ControllerBase
 {
     protected ISender Sender { get; }
 
-    protected long GetUserId()
+    protected long GetAccountId()
     {
         return User.Identity?.Name == null ? throw new MissingIdentityException()
             : long.Parse(User.Identity.Name, CultureInfo.InvariantCulture);
+    }
+
+    protected long GetUserId()
+    {
+        var claim = User.Claims.FirstOrDefault(x => x.Type == UserClaims.UserIdClaim);
+        return claim?.Value == null ? throw new MissingIdentityException()
+            : long.Parse(claim.Value, CultureInfo.InvariantCulture);
+    }
+
+    protected bool GetUserLoginMethod()
+    {
+        throw new NotImplementedException();
     }
 
     protected ApiControllerBase(ISender sender)

@@ -13,6 +13,8 @@ public class AccountBannerStatsConfiguration : ConfigurationBase<AccountBannerSt
         builder.Property(x => x.TotalRolls).IsRequired();
         builder.Property(x => x.RollsToLegendary).IsRequired();
         builder.Property(x => x.RollsToEpic).IsRequired();
+        builder.Property(x => x.TotalLegendaryRolls).IsRequired();
+        builder.Property(x => x.TotalEpicRolls).IsRequired();
 
         builder.HasIndex(x => new { x.AccountId, x.BannerType }).WhereNotDeleted().IsUnique();
 
