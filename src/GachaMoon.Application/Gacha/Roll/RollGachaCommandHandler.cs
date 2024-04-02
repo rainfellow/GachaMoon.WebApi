@@ -2,19 +2,16 @@ using GachaMoon.Application.Gacha.Common;
 using GachaMoon.Common.Query;
 using GachaMoon.Database;
 using GachaMoon.Domain.Accounts;
+using GachaMoon.Domain.Banners;
 using GachaMoon.Domain.Characters;
 using GachaMoon.Utilities.Constants;
 using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Application.Gacha.Roll;
-public class RollGachaCommandHandler : IRequestHandler<RollGachaCommand, RollGachaCommandResult>
+public class RollGachaCommandHandler(ApplicationDbContext dbContext) : IRequestHandler<RollGachaCommand, RollGachaCommandResult>
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ApplicationDbContext _dbContext = dbContext;
 
-    public RollGachaCommandHandler(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
     public async Task<RollGachaCommandResult> Handle(RollGachaCommand request, CancellationToken cancellationToken)
     {
         // Handle the command and return the result
@@ -24,21 +21,23 @@ public class RollGachaCommandHandler : IRequestHandler<RollGachaCommand, RollGac
             .Where(x => x.AccountId == request.AccountId)
             .FirstOrDefaultAsync(cancellationToken) ?? throw new NotImplementedException();
 
-        if (premiumInventory.PremiumCurrencyAmount < GameConstants.PremiumCurrencyRollCost * request.RollCount)
-        {
-            throw new NotImplementedException();
-        }
-
         var banner = await _dbContext.Banners
             .IsNotDeleted()
             .Where(x => x.Id == request.BannerId)
             .Select(x => new { x.Id, x.Type })
             .FirstOrDefaultAsync(cancellationToken) ?? throw new NotImplementedException();
 
+        var availableRolls = (premiumInventory.PremiumCurrencyAmount / GameConstants.PremiumCurrencyRollCost) + banner.Type == BannerType.Standard ? premiumInventory.StandardBannerRollsAmount : 0;
+
+        if (availableRolls < request.RollCount)
+        {
+            throw new NotImplementedException();
+        }
+
         var accountBannerData = await _dbContext.AccountBannerStats
             .IsNotDeleted()
             .Where(x => x.AccountId == request.AccountId && x.BannerType == banner.Type)
-            .FirstOrDefaultAsync(cancellationToken) ?? throw new NotImplementedException();
+            .FirstOrDefaultAsync(cancellationToken) ?? CreateBannerData(request, banner.Type);
 
         var bannerCharacters = await _dbContext.BannerCharacters
             .IsNotDeleted()
@@ -62,23 +61,24 @@ public class RollGachaCommandHandler : IRequestHandler<RollGachaCommand, RollGac
 
         for (var i = 0; i < request.RollCount; i++)
         {
-            var rollResult = rand.Next(1, 100);
-            if (rollResult is 100 || accountBannerData.RollsToLegendary <= 0)
+            var rollResult = rand.Next(1, 101);
+            var legendaryPityBuff = accountBannerData.RollsToLegendary < 20 ? 20 - accountBannerData.RollsToLegendary : 0;
+            if (rollResult >= 100 - legendaryPityBuff || accountBannerData.RollsToLegendary <= 1)
             {
-                accountBannerData.RollsToLegendary = 100 + 1 + accountBannerData.RollsToLegendary;
+                accountBannerData.RollsToLegendary = Math.Min(GameConstants.RollsToLegendary + 1, GameConstants.RollsToLegendary + accountBannerData.RollsToLegendary);
                 accountBannerData.TotalLegendaryRolls++;
-                var charId = rand.Next(0, legendaries.Count - 1);
+                var charId = rand.Next(0, legendaries.Count);
                 result.Add(new RollData
                 {
                     Result = RollResult.Legendary,
                     CharacterId = legendaries[charId]
                 });
             }
-            else if (rollResult >= 90 || accountBannerData.RollsToEpic <= 0)
+            else if (rollResult >= 90 || accountBannerData.RollsToEpic <= 1)
             {
-                accountBannerData.RollsToEpic = 10 + 1 + accountBannerData.RollsToEpic;
+                accountBannerData.RollsToEpic = Math.Min(GameConstants.RollsToEpic + 1, GameConstants.RollsToEpic + accountBannerData.RollsToEpic);
                 accountBannerData.TotalEpicRolls++;
-                var charId = rand.Next(0, epics.Count - 1);
+                var charId = rand.Next(0, epics.Count);
                 result.Add(new RollData
                 {
                     Result = RollResult.Epic,
@@ -159,7 +159,8 @@ public class RollGachaCommandHandler : IRequestHandler<RollGachaCommand, RollGac
                 FreeSkillPoints = 0,
                 TotalSkillPoints = 0,
                 CharacterLevel = 1,
-                CharacterExperience = 0
+                CharacterExperience = 0,
+                SkillTree = ""
             };
 
             charList.Add(accountCharEntry);
@@ -187,5 +188,21 @@ public class RollGachaCommandHandler : IRequestHandler<RollGachaCommand, RollGac
             BannerId = bannerId,
             Result = result
         };
+    }
+
+    private AccountBannerStats CreateBannerData(RollGachaCommand request, BannerType bannerType)
+    {
+        var data = new AccountBannerStats
+        {
+            AccountId = request.AccountId,
+            BannerType = bannerType,
+            TotalRolls = 0,
+            TotalEpicRolls = 0,
+            TotalLegendaryRolls = 0,
+            RollsToLegendary = GameConstants.RollsToLegendary,
+            RollsToEpic = GameConstants.RollsToEpic
+        };
+        _dbContext.AccountBannerStats.Add(data);
+        return data;
     }
 }

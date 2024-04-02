@@ -5,12 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GachaMoon.WebApi.Endpoints.Internal.Discord;
 
-public class DiscordController : InternalApiControllerBase
+public class DiscordController(ISender sender) : InternalApiControllerBase(sender)
 {
-    public DiscordController(ISender sender) : base(sender)
-    {
-    }
-
     [HttpGet("auth/token")]
     public async Task<ActionResult<DiscordLoginCommandResult>> GetUserToken([FromQuery] string discordIdentifier, CancellationToken cancellationToken)
     {

@@ -9,7 +9,8 @@ public class BannerConfiguration : ConfigurationBase<Banner>
     protected override void ApplyConfiguration(EntityTypeBuilder<Banner> builder)
     {
         base.ApplyConfiguration(builder);
-        builder.Property(x => x.Title).IsRequired();
-        builder.Property(x => x.Type).IsRequired();
+        _ = builder.Property(x => x.Title).IsRequired();
+        _ = builder.Property(x => x.Type).IsRequired();
+        _ = builder.Property(x => x.BannerExpiryDate).IsRequired(false);
     }
 }

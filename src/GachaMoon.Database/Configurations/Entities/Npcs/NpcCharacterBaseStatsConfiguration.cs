@@ -7,12 +7,12 @@ public class NpcCharacterBaseStatsConfiguration : IEntityTypeConfiguration<NpcCh
 {
     public void Configure(EntityTypeBuilder<NpcCharacterBaseStats> builder)
     {
-        builder.Property(n => n.NpcCharacterId).IsRequired();
-        builder.HasOne(n => n.NpcCharacter)
+        _ = builder.Property(n => n.NpcCharacterId).IsRequired();
+        _ = builder.HasOne(n => n.NpcCharacter)
             .WithOne()
             .HasForeignKey<NpcCharacterBaseStats>(n => n.NpcCharacterId);
-        builder.Property(n => n.Attack).IsRequired();
-        builder.Property(n => n.Defence).IsRequired();
-        builder.Property(n => n.Health).IsRequired();
+        _ = builder.Property(n => n.Attack).IsRequired();
+        _ = builder.Property(n => n.Defence).IsRequired();
+        _ = builder.Property(n => n.Health).IsRequired();
     }
 }

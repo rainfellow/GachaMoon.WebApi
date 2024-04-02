@@ -18,7 +18,7 @@ namespace GachaMoon.Database.Migrations.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -82,11 +82,9 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BannerId");
+                    b.HasIndex("AccountId");
 
-                    b.HasIndex("AccountId", "BannerId")
-                        .IsUnique()
-                        .HasFilter("\"DeletedAt\" is NULL");
+                    b.HasIndex("BannerId");
 
                     b.ToTable("AccountBannerHistory");
                 });
@@ -250,6 +248,11 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Property<int>("PremiumCurrencyAmount")
                         .HasColumnType("integer");
 
+                    b.Property<int>("StandardBannerRollsAmount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
+
                     b.Property<Instant>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -270,6 +273,9 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("BannerExpiryDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Instant>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -362,7 +368,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                             Id = 1L,
                             CharacterType = 1,
                             CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
-                            Name = "Ромихи",
+                            Name = "Аккихи",
                             Rarity = 2,
                             UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
                         },
@@ -380,7 +386,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                             Id = 3L,
                             CharacterType = 4,
                             CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
-                            Name = "Пациент 163",
+                            Name = "Кадзуал",
                             Rarity = 2,
                             UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
                         },
@@ -416,7 +422,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                             Id = 7L,
                             CharacterType = 4,
                             CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
-                            Name = "Кедонап",
+                            Name = "Панкоед",
                             Rarity = 1,
                             UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
                         });
@@ -1065,6 +1071,99 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .HasFilter("\"DeletedAt\" is NULL");
 
                     b.ToTable("Promocodes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Code = "APRILFOOLS",
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            ExpiryDate = new DateOnly(1, 1, 1),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UsesLeft = 0
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Code = "SORRYFROZEN",
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            ExpiryDate = new DateOnly(1, 1, 1),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UsesLeft = 0
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Code = "GIVEMEROLLS",
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            ExpiryDate = new DateOnly(1, 1, 1),
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            UsesLeft = 0
+                        });
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Promocodes.PromocodeEffect", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<Instant>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("EffectAmount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EffectType")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("PromoCodeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Instant>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PromoCodeId", "EffectType")
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" is NULL");
+
+                    b.ToTable("PromocodeEffects");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            EffectAmount = 1000,
+                            EffectType = 1,
+                            PromoCodeId = 1L,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            EffectAmount = 1000,
+                            EffectType = 1,
+                            PromoCodeId = 2L,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
+                            EffectAmount = 10,
+                            EffectType = 2,
+                            PromoCodeId = 3L,
+                            UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L)
+                        });
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Promocodes.PromocodeHistory", b =>
@@ -1341,6 +1440,17 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Navigation("NpcCharacter");
                 });
 
+            modelBuilder.Entity("GachaMoon.Domain.Promocodes.PromocodeEffect", b =>
+                {
+                    b.HasOne("GachaMoon.Domain.Promocodes.Promocode", "Promocode")
+                        .WithMany("PromocodeEffects")
+                        .HasForeignKey("PromoCodeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Promocode");
+                });
+
             modelBuilder.Entity("GachaMoon.Domain.Promocodes.PromocodeHistory", b =>
                 {
                     b.HasOne("GachaMoon.Domain.Accounts.Account", "Account")
@@ -1385,6 +1495,11 @@ namespace GachaMoon.Database.Migrations.Migrations
             modelBuilder.Entity("GachaMoon.Domain.Banners.Banner", b =>
                 {
                     b.Navigation("BannerCharacters");
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Promocodes.Promocode", b =>
+                {
+                    b.Navigation("PromocodeEffects");
                 });
 #pragma warning restore 612, 618
         }

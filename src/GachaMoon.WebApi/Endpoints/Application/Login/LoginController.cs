@@ -6,12 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace GachaMoon.WebApi.Endpoints.Application.Login;
 
 [AllowAnonymous]
-public class LoginController : ApiControllerBase
+public class LoginController(ISender sender) : ApiControllerBase(sender)
 {
-    public LoginController(ISender sender) : base(sender)
-    {
-    }
-
     [HttpPost]
     public async Task<ActionResult<LoginResponse>> Login(
         [FromBody] LoginRequest request,

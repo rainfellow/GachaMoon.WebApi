@@ -31,7 +31,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         builder =>
         {
-            builder
+            _ = builder
                 .SetIsOriginAllowed(origin => new Uri(origin).IsLoopback || origin.Contains("http://web.gachamoon.ru", StringComparison.InvariantCultureIgnoreCase))
                 .AllowAnyMethod()
                 .AllowAnyHeader()
@@ -44,7 +44,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(opts =>
     {
         opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        opts.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
+        _ = opts.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
     });
 
 builder.Services.AddApiVersioning(options =>
@@ -57,7 +57,7 @@ builder.Services.AddApiVersioning(options =>
 
 builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 {
-    loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration);
+    _ = loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration);
 });
 
 builder.Services.AddTransient<ProblemDetailsFactory, CustomProblemDetailsFactory>();
@@ -81,7 +81,7 @@ builder.Services.AddOutputCache(options =>
 {
     options.AddPolicy("BodyCaching", builder =>
     {
-        builder.VaryByValue(
+        _ = builder.VaryByValue(
             (context) =>
             {
                 context.Request.EnableBuffering();
@@ -116,8 +116,8 @@ InitializeDb(app);
 // Configure the HTTP request pipeline.
 if (true || app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    _ = app.UseSwagger();
+    _ = app.UseSwaggerUI();
 }
 
 app.UseExceptionHandler(new ExceptionHandlerOptions()
@@ -142,10 +142,10 @@ app.Run();
 
 void AddJwtAuthentication(IServiceCollection services, IConfiguration configuration)
 {
-    services.AddAndValidateOptions<JwtOptions>(configuration, "Jwt");
+    _ = services.AddAndValidateOptions<JwtOptions>(configuration, "Jwt");
 
     var jwtConfig = configuration.GetRequiredSection("Jwt");
-    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    _ = services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
         {
             options.RequireHttpsMetadata = false;
@@ -173,13 +173,13 @@ static void InitializeDb(WebApplication app)
 static void AddSwagger(IServiceCollection services)
 {
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    services.AddEndpointsApiExplorer();
-    services.AddVersionedApiExplorer(setup =>
+    _ = services.AddEndpointsApiExplorer();
+    _ = services.AddVersionedApiExplorer(setup =>
     {
         setup.GroupNameFormat = "'v'VVV";
         setup.SubstituteApiVersionInUrl = true;
     });
-    services.AddSwaggerGen(options =>
+    _ = services.AddSwaggerGen(options =>
     {
         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {

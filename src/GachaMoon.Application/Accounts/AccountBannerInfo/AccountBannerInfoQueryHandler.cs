@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Application.Accounts.AccountBannerInfo;
 
-public class AccountBannerInfoQueryHandler : IRequestHandler<AccountBannerInfoQuery, AccountBannerInfoQueryResult>
+public class AccountBannerInfoQueryHandler(ApplicationDbContext dbContext) : IRequestHandler<AccountBannerInfoQuery, AccountBannerInfoQueryResult>
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public AccountBannerInfoQueryHandler(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    private readonly ApplicationDbContext _dbContext = dbContext;
 
     public async Task<AccountBannerInfoQueryResult> Handle(AccountBannerInfoQuery request, CancellationToken cancellationToken)
     {

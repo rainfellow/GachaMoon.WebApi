@@ -30,11 +30,11 @@ public static class JwtUtilities
     {
         var claims = new List<Claim>()
         {
-            new Claim(JwtRegisteredClaimNames.UniqueName, userData.AccountId.ToString(CultureInfo.InvariantCulture)),
-            new Claim(UserClaims.UserIdClaim, userData.UserId.ToString(CultureInfo.InvariantCulture)),
-            new Claim(UserClaims.IsInternalUserClaim, userData.IsInternalUser.ToString(CultureInfo.InvariantCulture)),
-            new Claim(ClaimTypes.Role, ClaimsIdentity.DefaultRoleClaimType),
-            new Claim(UserClaims.IsAdminClaim, userData.IsAdmin.ToString(CultureInfo.InvariantCulture))
+            new(JwtRegisteredClaimNames.UniqueName, userData.AccountId.ToString(CultureInfo.InvariantCulture)),
+            new(UserClaims.UserIdClaim, userData.UserId.ToString(CultureInfo.InvariantCulture)),
+            new(UserClaims.IsInternalUserClaim, userData.IsInternalUser.ToString(CultureInfo.InvariantCulture)),
+            new(ClaimTypes.Role, ClaimsIdentity.DefaultRoleClaimType),
+            new(UserClaims.IsAdminClaim, userData.IsAdmin.ToString(CultureInfo.InvariantCulture))
         };
 
         return new ClaimsIdentity(claims);

@@ -6,12 +6,8 @@ using Microsoft.AspNetCore.OutputCaching;
 
 namespace GachaMoon.WebApi.Endpoints.Internal.GameObjects;
 
-public class GameObjectsController : InternalApiControllerBase
+public class GameObjectsController(ISender sender) : InternalApiControllerBase(sender)
 {
-    public GameObjectsController(ISender sender) : base(sender)
-    {
-    }
-
     [HttpGet("characters")]
     [OutputCache(Duration = 180)]
     public async Task<ActionResult<ListCharactersQueryResult>> GetCharacters(CancellationToken cancellationToken)
@@ -21,7 +17,7 @@ public class GameObjectsController : InternalApiControllerBase
         return Ok(result);
     }
 
-    [HttpPost("abilities")]
+    [HttpGet("abilities")]
     [OutputCache(Duration = 180)]
     public async Task<ActionResult<ListCharacterAbilitiesQueryResult>> GetAbilities(CancellationToken cancellationToken)
     {

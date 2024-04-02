@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Application.User.UpdateUserInfo;
 
-public class UpdateUserInfoCommandHandler : IRequestHandler<UpdateUserInfoCommand>
+public class UpdateUserInfoCommandHandler(ApplicationDbContext dbContext) : IRequestHandler<UpdateUserInfoCommand>
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public UpdateUserInfoCommandHandler(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    private readonly ApplicationDbContext _dbContext = dbContext;
 
     public async Task Handle(UpdateUserInfoCommand request, CancellationToken cancellationToken)
     {

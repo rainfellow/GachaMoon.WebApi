@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Application.User.UserInfo;
 
-public class UserInfoQueryHandler : IRequestHandler<UserInfoQuery, UserInfoQueryResult>
+public class UserInfoQueryHandler(ApplicationDbContext dbContext) : IRequestHandler<UserInfoQuery, UserInfoQueryResult>
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public UserInfoQueryHandler(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    private readonly ApplicationDbContext _dbContext = dbContext;
 
     public async Task<UserInfoQueryResult> Handle(UserInfoQuery request, CancellationToken cancellationToken)
     {

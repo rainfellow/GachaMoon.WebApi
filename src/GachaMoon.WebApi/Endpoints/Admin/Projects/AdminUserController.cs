@@ -2,9 +2,6 @@ using MediatR;
 
 namespace GachaMoon.WebApi.Endpoints.Admin.Projects;
 
-public class UserController : AdminControllerBase
+public class UserController(ISender sender) : AdminControllerBase(sender)
 {
-    public UserController(ISender sender) : base(sender)
-    {
-    }
 }

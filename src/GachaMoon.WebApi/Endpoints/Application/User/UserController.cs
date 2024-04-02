@@ -6,12 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GachaMoon.WebApi.Endpoints.Application.User;
 
-public class UserController : ApiControllerBase
+public class UserController(ISender sender) : ApiControllerBase(sender)
 {
-    public UserController(ISender sender) : base(sender)
-    {
-    }
-
     [AllowAnonymous]
     [HttpPost("signup")]
     public async Task<ActionResult<SignupResponse>> Signup(

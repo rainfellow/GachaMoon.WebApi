@@ -14,19 +14,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Database;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext(DbContextOptions options, IClockProvider clockProvider) : DbContext(options)
 {
-    private readonly IClockProvider _clockProvider;
-
-    // public ApplicationDbContext(IClockProvider clockProvider)
-    // {
-    //     _clockProvider = clockProvider;
-    // }
-
-    public ApplicationDbContext(DbContextOptions options, IClockProvider clockProvider) : base(options)
-    {
-        _clockProvider = clockProvider;
-    }
+    private readonly IClockProvider _clockProvider = clockProvider;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -73,26 +63,27 @@ public class ApplicationDbContext : DbContext
 
     private static void ApplyConfigurations(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new InternalUserConfiguration());
-        modelBuilder.ApplyConfiguration(new ExternalUserConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new InternalUserConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new ExternalUserConfiguration());
 
-        modelBuilder.ApplyConfiguration(new AccountConfiguration());
-        modelBuilder.ApplyConfiguration(new AccountBannerHistoryConfiguration());
-        modelBuilder.ApplyConfiguration(new AccountBannerStatsConfiguration());
-        modelBuilder.ApplyConfiguration(new AccountCharacterConfiguration());
-        modelBuilder.ApplyConfiguration(new AccountCharacterAbilityConfiguration());
-        modelBuilder.ApplyConfiguration(new PremiumInventoryConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new AccountConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new AccountBannerHistoryConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new AccountBannerStatsConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new AccountCharacterConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new AccountCharacterAbilityConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new PremiumInventoryConfiguration());
 
-        modelBuilder.ApplyConfiguration(new BannerConfiguration());
-        modelBuilder.ApplyConfiguration(new BannerCharacterConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new BannerConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new BannerCharacterConfiguration());
 
-        modelBuilder.ApplyConfiguration(new CharacterConfiguration());
-        modelBuilder.ApplyConfiguration(new CharacterAbilityConfiguration());
-        modelBuilder.ApplyConfiguration(new CharacterBaseStatsConfiguration());
-        modelBuilder.ApplyConfiguration(new DefaultCharacterAbilityConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new CharacterConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new CharacterAbilityConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new CharacterBaseStatsConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new DefaultCharacterAbilityConfiguration());
 
-        modelBuilder.ApplyConfiguration(new PromocodeConfiguration());
-        modelBuilder.ApplyConfiguration(new PromocodeHistoryConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new PromocodeConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new PromocodeEffectConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new PromocodeHistoryConfiguration());
     }
 
 #nullable disable
@@ -115,6 +106,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<DefaultCharacterAbility> DefaultCharacterAbilities { get; set; }
 
     public DbSet<Promocode> Promocodes { get; set; }
+    public DbSet<PromocodeEffect> PromocodeEffects { get; set; }
     public DbSet<PromocodeHistory> PromocodeHistory { get; set; }
 
     public DbSet<NpcCharacter> NpcCharacters { get; set; }

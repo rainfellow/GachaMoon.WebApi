@@ -9,16 +9,16 @@ public class NpcCharacterAbilityConfiguration : IEntityTypeConfiguration<NpcChar
 {
     public void Configure(EntityTypeBuilder<NpcCharacterAbility> builder)
     {
-        builder.Property(n => n.NpcCharacterId).IsRequired();
-        builder.Property(n => n.CharacterAbilityId).IsRequired();
+        _ = builder.Property(n => n.NpcCharacterId).IsRequired();
+        _ = builder.Property(n => n.CharacterAbilityId).IsRequired();
 
-        builder.HasOne(n => n.NpcCharacter)
+        _ = builder.HasOne(n => n.NpcCharacter)
             .WithMany()
             .HasForeignKey(n => n.NpcCharacterId);
-        builder.HasOne(n => n.CharacterAbility)
+        _ = builder.HasOne(n => n.CharacterAbility)
             .WithMany()
             .HasForeignKey(n => n.CharacterAbilityId);
 
-        builder.HasIndex(n => new { n.NpcCharacterId, n.CharacterAbilityId }).WhereNotDeleted().IsUnique();
+        _ = builder.HasIndex(n => new { n.NpcCharacterId, n.CharacterAbilityId }).WhereNotDeleted().IsUnique();
     }
 }

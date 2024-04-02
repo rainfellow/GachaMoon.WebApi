@@ -8,11 +8,11 @@ public class AccountConfiguration : ConfigurationBase<Account>
     {
         base.ApplyConfiguration(builder);
 
-        builder.Property(x => x.AccountName)
+        _ = builder.Property(x => x.AccountName)
             .HasMaxLength(255)
             .IsRequired();
 
-        builder.Property(x => x.AccountType)
+        _ = builder.Property(x => x.AccountType)
             .IsRequired();
     }
 }

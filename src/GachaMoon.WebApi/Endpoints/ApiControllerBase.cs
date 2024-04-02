@@ -12,9 +12,9 @@ namespace GachaMoon.WebApi.Endpoints;
 [ApiController]
 [ApiVersion(ApiVersions.V1)]
 [Route("api/v{version:apiVersion}/[controller]")]
-public abstract class ApiControllerBase : ControllerBase
+public abstract class ApiControllerBase(ISender sender) : ControllerBase
 {
-    protected ISender Sender { get; }
+    protected ISender Sender { get; } = sender;
 
     protected long GetAccountId()
     {
@@ -32,10 +32,5 @@ public abstract class ApiControllerBase : ControllerBase
     protected bool GetUserLoginMethod()
     {
         throw new NotImplementedException();
-    }
-
-    protected ApiControllerBase(ISender sender)
-    {
-        Sender = sender;
     }
 }

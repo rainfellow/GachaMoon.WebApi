@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Application.Banners.List;
 
-public class ListBannersQueryHandler : IRequestHandler<ListBannersQuery, ListBannersQueryResult>
+public class ListBannersQueryHandler(ApplicationDbContext dbContext) : IRequestHandler<ListBannersQuery, ListBannersQueryResult>
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public ListBannersQueryHandler(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    private readonly ApplicationDbContext _dbContext = dbContext;
 
     public async Task<ListBannersQueryResult> Handle(ListBannersQuery request, CancellationToken cancellationToken)
     {

@@ -7,17 +7,10 @@ using GachaMoon.Common.Exceptions.Users;
 
 namespace GachaMoon.Application.User.External.DiscordLogin;
 
-public class DiscordLoginCommandHandler : IRequestHandler<DiscordLoginCommand, DiscordLoginCommandResult>
+public class DiscordLoginCommandHandler(ApplicationDbContext dbContext, JwtOptions jwtOptions) : IRequestHandler<DiscordLoginCommand, DiscordLoginCommandResult>
 {
-    private readonly ApplicationDbContext _dbContext;
-    private readonly JwtOptions _jwtOptions;
-
-
-    public DiscordLoginCommandHandler(ApplicationDbContext dbContext, JwtOptions jwtOptions)
-    {
-        _dbContext = dbContext;
-        _jwtOptions = jwtOptions;
-    }
+    private readonly ApplicationDbContext _dbContext = dbContext;
+    private readonly JwtOptions _jwtOptions = jwtOptions;
 
     public async Task<DiscordLoginCommandResult> Handle(DiscordLoginCommand request, CancellationToken cancellationToken)
     {
@@ -34,6 +27,11 @@ public class DiscordLoginCommandHandler : IRequestHandler<DiscordLoginCommand, D
         var token = JwtUtilities
             .GenerateToken(new JwtTokenData(user.Id, user.AccountId, account.AccountType == Domain.Accounts.AccountType.Admin, false), _jwtOptions);
 
-        return new DiscordLoginCommandResult();
+        return new DiscordLoginCommandResult
+        {
+            Token = token,
+            AccountId = account.Id,
+            ExternalUserId = user.Id
+        };
     }
 }

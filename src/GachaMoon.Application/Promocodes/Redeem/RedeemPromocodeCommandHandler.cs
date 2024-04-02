@@ -6,30 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Application.Promocodes.Redeem;
 
-public class RedeemPromocodeCommandHandler : IRequestHandler<RedeemPromocodeCommand, RedeemPromocodeCommandResult>
+public class RedeemPromocodeCommandHandler(ApplicationDbContext dbContext, IClockProvider clockProvider) : IRequestHandler<RedeemPromocodeCommand, RedeemPromocodeCommandResult>
 {
-    private readonly ApplicationDbContext _dbContext;
-    private readonly IClockProvider _clockProvider;
-
-    public RedeemPromocodeCommandHandler(ApplicationDbContext dbContext, IClockProvider clockProvider)
-    {
-        _dbContext = dbContext;
-        _clockProvider = clockProvider;
-    }
+    private readonly ApplicationDbContext _dbContext = dbContext;
+    private readonly IClockProvider _clockProvider = clockProvider;
 
     public async Task<RedeemPromocodeCommandResult> Handle(RedeemPromocodeCommand request, CancellationToken cancellationToken)
     {
         var now = _clockProvider.Now;
         var code = await _dbContext.Promocodes
             .IsNotDeleted()
-            .Select(x => new
-            {
-                x.Id,
-                x.ExpiryDate,
-                x.UsesLeft,
-                x.Code
-            })
-            .FirstOrDefaultAsync(cancellationToken)
+            .FirstOrDefaultAsync(x => x.Code == request.SubmittedCode, cancellationToken)
             ?? throw new NotImplementedException($"Promocode {request.SubmittedCode} not found.");
 
         if (code.ExpiryDate < DateOnly.FromDateTime(now.ToDateTimeUtc()))
@@ -41,6 +28,16 @@ public class RedeemPromocodeCommandHandler : IRequestHandler<RedeemPromocodeComm
         {
             throw new NotImplementedException();
         }
+
+        var codeEffects = await _dbContext.PromocodeEffects
+            .IsNotDeleted()
+            .Where(x => x.PromoCodeId == code.Id)
+            .Select(x => new
+            {
+                x.EffectType,
+                x.EffectAmount
+            })
+            .ToListAsync(cancellationToken);
 
         var usedAlready = await _dbContext.PromocodeHistory
             .IsNotDeleted()
@@ -54,18 +51,29 @@ public class RedeemPromocodeCommandHandler : IRequestHandler<RedeemPromocodeComm
 
         _dbContext.PromocodeHistory.Add(CreateHistoryEntry(code.Id, request.AccountId));
 
-
-        //todo better promocode system
-        if (code.Code == "APRILFOOLS")
+        var accountPremiumInventory = await _dbContext.PremiumInventories
+            .IsNotDeleted()
+            .FirstOrDefaultAsync(x => x.AccountId == request.AccountId, cancellationToken) ?? throw new NotImplementedException();
+        foreach (var effect in codeEffects)
         {
-            var accountPremiumInventory = await _dbContext.PremiumInventories
-                .IsNotDeleted()
-                .Where(x => x.AccountId == request.AccountId)
-                .FirstOrDefaultAsync(cancellationToken) ?? throw new NotImplementedException();
-
-            accountPremiumInventory.PremiumCurrencyAmount += 1000;
+            switch (effect.EffectType)
+            {
+                case PromocodeEffectType.GivePremiumCurrency:
+                    accountPremiumInventory.PremiumCurrencyAmount += effect.EffectAmount;
+                    break;
+                case PromocodeEffectType.GiveStandardRolls:
+                    accountPremiumInventory.StandardBannerRollsAmount += effect.EffectAmount;
+                    break;
+                case PromocodeEffectType.GiveCharacter:
+                    break;
+                case PromocodeEffectType.None:
+                    break;
+                default:
+                    break;
+            }
         }
 
+        code.UsesLeft--;
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         return new()

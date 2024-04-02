@@ -2,12 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GachaMoon.Utilities.Formatted;
 
-public class FormattedEmail : FormattedString
+public class FormattedEmail(string data) : FormattedString(data)
 {
-    public FormattedEmail(string data) : base(data)
-    {
-    }
-
     protected override string ExpectedFormat => "address@example.com";
 
     protected override string Format(string data)

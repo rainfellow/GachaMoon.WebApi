@@ -1,13 +1,7 @@
 namespace GachaMoon.Utilities.Sorting;
 
-public class SortingBy
+public class SortingBy(string propertyName, bool isDescending)
 {
-    public string PropertyName { get; }
-    public bool IsDescending { get; }
-
-    public SortingBy(string propertyName, bool isDescending)
-    {
-        PropertyName = propertyName;
-        IsDescending = isDescending;
-    }
+    public string PropertyName { get; } = propertyName;
+    public bool IsDescending { get; } = isDescending;
 }

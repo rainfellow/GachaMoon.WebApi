@@ -6,12 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GachaMoon.WebApi.Endpoints.Application.Account;
 
-public class AccountController : ApiControllerBase
+public class AccountController(ISender sender) : ApiControllerBase(sender)
 {
-    public AccountController(ISender sender) : base(sender)
-    {
-    }
-
     [HttpGet("me")]
     public async Task<ActionResult<AccountInfoQueryResult>> GetAccountInfo(
         CancellationToken cancellationToken)

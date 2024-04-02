@@ -13,7 +13,7 @@ namespace GachaMoon.Database.Migrations.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Accounts",
                 columns: table => new
                 {
@@ -27,10 +27,10 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accounts", x => x.Id);
+                    _ = table.PrimaryKey("PK_Accounts", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Banners",
                 columns: table => new
                 {
@@ -44,10 +44,10 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Banners", x => x.Id);
+                    _ = table.PrimaryKey("PK_Banners", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "CharacterAbilities",
                 columns: table => new
                 {
@@ -63,10 +63,10 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CharacterAbilities", x => x.Id);
+                    _ = table.PrimaryKey("PK_CharacterAbilities", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Characters",
                 columns: table => new
                 {
@@ -81,10 +81,10 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Characters", x => x.Id);
+                    _ = table.PrimaryKey("PK_Characters", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "NpcCharacters",
                 columns: table => new
                 {
@@ -99,10 +99,10 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NpcCharacters", x => x.Id);
+                    _ = table.PrimaryKey("PK_NpcCharacters", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Promocodes",
                 columns: table => new
                 {
@@ -117,10 +117,10 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Promocodes", x => x.Id);
+                    _ = table.PrimaryKey("PK_Promocodes", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "AccountBannerStats",
                 columns: table => new
                 {
@@ -137,8 +137,8 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountBannerStats", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_AccountBannerStats", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_AccountBannerStats_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
@@ -146,7 +146,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "ExternalUsers",
                 columns: table => new
                 {
@@ -161,8 +161,8 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExternalUsers", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_ExternalUsers", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_ExternalUsers_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
@@ -170,7 +170,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "InternalUsers",
                 columns: table => new
                 {
@@ -185,8 +185,8 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InternalUsers", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_InternalUsers", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_InternalUsers_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
@@ -194,7 +194,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "PremiumInventories",
                 columns: table => new
                 {
@@ -208,8 +208,8 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PremiumInventories", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_PremiumInventories", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_PremiumInventories_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
@@ -217,7 +217,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "AccountBannerHistory",
                 columns: table => new
                 {
@@ -232,14 +232,14 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountBannerHistory", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_AccountBannerHistory", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_AccountBannerHistory_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_AccountBannerHistory_Banners_BannerId",
                         column: x => x.BannerId,
                         principalTable: "Banners",
@@ -247,7 +247,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "AccountCharacters",
                 columns: table => new
                 {
@@ -267,14 +267,14 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountCharacters", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_AccountCharacters", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_AccountCharacters_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_AccountCharacters_Characters_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "Characters",
@@ -282,7 +282,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "BannerCharacters",
                 columns: table => new
                 {
@@ -296,14 +296,14 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BannerCharacters", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_BannerCharacters", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_BannerCharacters_Banners_BannerId",
                         column: x => x.BannerId,
                         principalTable: "Banners",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_BannerCharacters_Characters_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "Characters",
@@ -311,7 +311,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "CharacterBaseStats",
                 columns: table => new
                 {
@@ -328,8 +328,8 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CharacterBaseStats", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_CharacterBaseStats", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_CharacterBaseStats_Characters_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "Characters",
@@ -337,7 +337,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "DefaultCharacterAbilities",
                 columns: table => new
                 {
@@ -352,14 +352,14 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DefaultCharacterAbilities", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_DefaultCharacterAbilities", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_DefaultCharacterAbilities_CharacterAbilities_CharacterAbili~",
                         column: x => x.CharacterAbilityId,
                         principalTable: "CharacterAbilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_DefaultCharacterAbilities_Characters_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "Characters",
@@ -367,7 +367,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "NpcCharacterAbilities",
                 columns: table => new
                 {
@@ -381,14 +381,14 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NpcCharacterAbilities", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_NpcCharacterAbilities", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_NpcCharacterAbilities_CharacterAbilities_CharacterAbilityId",
                         column: x => x.CharacterAbilityId,
                         principalTable: "CharacterAbilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_NpcCharacterAbilities_NpcCharacters_NpcCharacterId",
                         column: x => x.NpcCharacterId,
                         principalTable: "NpcCharacters",
@@ -396,7 +396,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "NpcCharacterBaseStats",
                 columns: table => new
                 {
@@ -412,8 +412,8 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NpcCharacterBaseStats", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_NpcCharacterBaseStats", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_NpcCharacterBaseStats_NpcCharacters_NpcCharacterId",
                         column: x => x.NpcCharacterId,
                         principalTable: "NpcCharacters",
@@ -421,7 +421,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "PromocodeHistory",
                 columns: table => new
                 {
@@ -435,14 +435,14 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PromocodeHistory", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_PromocodeHistory", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_PromocodeHistory_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_PromocodeHistory_Promocodes_PromoCodeId",
                         column: x => x.PromoCodeId,
                         principalTable: "Promocodes",
@@ -450,7 +450,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "AccountCharacterAbilities",
                 columns: table => new
                 {
@@ -465,14 +465,14 @@ namespace GachaMoon.Database.Migrations.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountCharacterAbilities", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_AccountCharacterAbilities", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_AccountCharacterAbilities_AccountCharacters_AccountCharacte~",
                         column: x => x.AccountCharacterId,
                         principalTable: "AccountCharacters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_AccountCharacterAbilities_CharacterAbilities_CharacterAbili~",
                         column: x => x.CharacterAbilityId,
                         principalTable: "CharacterAbilities",
@@ -480,135 +480,135 @@ namespace GachaMoon.Database.Migrations.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_AccountBannerHistory_AccountId_BannerId",
                 table: "AccountBannerHistory",
                 columns: new[] { "AccountId", "BannerId" },
                 unique: true,
                 filter: "\"DeletedAt\" is NULL");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_AccountBannerHistory_BannerId",
                 table: "AccountBannerHistory",
                 column: "BannerId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_AccountBannerStats_AccountId_BannerType",
                 table: "AccountBannerStats",
                 columns: new[] { "AccountId", "BannerType" },
                 unique: true,
                 filter: "\"DeletedAt\" is NULL");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_AccountCharacterAbilities_AbilityType_AccountCharacterId",
                 table: "AccountCharacterAbilities",
                 columns: new[] { "AbilityType", "AccountCharacterId" },
                 unique: true,
                 filter: "\"DeletedAt\" is NULL");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_AccountCharacterAbilities_AccountCharacterId",
                 table: "AccountCharacterAbilities",
                 column: "AccountCharacterId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_AccountCharacterAbilities_CharacterAbilityId",
                 table: "AccountCharacterAbilities",
                 column: "CharacterAbilityId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_AccountCharacters_AccountId_CharacterId",
                 table: "AccountCharacters",
                 columns: new[] { "AccountId", "CharacterId" },
                 unique: true,
                 filter: "\"DeletedAt\" is NULL");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_AccountCharacters_CharacterId",
                 table: "AccountCharacters",
                 column: "CharacterId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_BannerCharacters_BannerId",
                 table: "BannerCharacters",
                 column: "BannerId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_BannerCharacters_CharacterId",
                 table: "BannerCharacters",
                 column: "CharacterId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_CharacterBaseStats_CharacterId_CharacterLevel",
                 table: "CharacterBaseStats",
                 columns: new[] { "CharacterId", "CharacterLevel" },
                 unique: true,
                 filter: "\"DeletedAt\" is NULL");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_DefaultCharacterAbilities_CharacterAbilityId",
                 table: "DefaultCharacterAbilities",
                 column: "CharacterAbilityId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_DefaultCharacterAbilities_CharacterId_AbilityType",
                 table: "DefaultCharacterAbilities",
                 columns: new[] { "CharacterId", "AbilityType" },
                 unique: true,
                 filter: "\"DeletedAt\" is NULL");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_ExternalUsers_AccountId",
                 table: "ExternalUsers",
                 column: "AccountId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_ExternalUsers_UserType_AccountId",
                 table: "ExternalUsers",
                 columns: new[] { "UserType", "AccountId" },
                 unique: true,
                 filter: "\"DeletedAt\" is NULL");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_InternalUsers_AccountId",
                 table: "InternalUsers",
                 column: "AccountId",
                 unique: true,
                 filter: "\"DeletedAt\" is NULL");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_NpcCharacterAbilities_CharacterAbilityId",
                 table: "NpcCharacterAbilities",
                 column: "CharacterAbilityId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_NpcCharacterAbilities_NpcCharacterId",
                 table: "NpcCharacterAbilities",
                 column: "NpcCharacterId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_NpcCharacterBaseStats_NpcCharacterId",
                 table: "NpcCharacterBaseStats",
                 column: "NpcCharacterId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_PremiumInventories_AccountId",
                 table: "PremiumInventories",
                 column: "AccountId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_PromocodeHistory_AccountId_PromoCodeId",
                 table: "PromocodeHistory",
                 columns: new[] { "AccountId", "PromoCodeId" },
                 unique: true,
                 filter: "\"DeletedAt\" is NULL");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_PromocodeHistory_PromoCodeId",
                 table: "PromocodeHistory",
                 column: "PromoCodeId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_Promocodes_Code",
                 table: "Promocodes",
                 column: "Code",
@@ -619,61 +619,61 @@ namespace GachaMoon.Database.Migrations.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "AccountBannerHistory");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "AccountBannerStats");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "AccountCharacterAbilities");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "BannerCharacters");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "CharacterBaseStats");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "DefaultCharacterAbilities");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "ExternalUsers");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "InternalUsers");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "NpcCharacterAbilities");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "NpcCharacterBaseStats");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "PremiumInventories");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "PromocodeHistory");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "AccountCharacters");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Banners");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "CharacterAbilities");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "NpcCharacters");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Promocodes");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Accounts");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Characters");
         }
     }

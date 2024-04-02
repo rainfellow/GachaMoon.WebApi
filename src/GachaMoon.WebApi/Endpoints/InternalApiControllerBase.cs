@@ -9,12 +9,7 @@ namespace GachaMoon.WebApi.Endpoints;
 [ApiController]
 [ApiVersion(ApiVersions.V1)]
 [Route("internal-api/v{version:apiVersion}/[controller]")]
-public abstract class InternalApiControllerBase : ControllerBase
+public abstract class InternalApiControllerBase(ISender sender) : ControllerBase
 {
-    protected ISender Sender { get; }
-
-    protected InternalApiControllerBase(ISender sender)
-    {
-        Sender = sender;
-    }
+    protected ISender Sender { get; } = sender;
 }

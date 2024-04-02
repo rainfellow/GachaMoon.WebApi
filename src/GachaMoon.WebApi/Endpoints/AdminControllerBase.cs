@@ -10,10 +10,6 @@ namespace GachaMoon.WebApi.Endpoints;
 [ApiController]
 [ApiVersion(ApiVersions.V1)]
 [Route("api/v{version:apiVersion}/admin/[controller]")]
-public abstract class AdminControllerBase : ApiControllerBase
+public abstract class AdminControllerBase(ISender sender) : ApiControllerBase(sender)
 {
-    protected AdminControllerBase(ISender sender) : base(sender)
-    {
-
-    }
 }

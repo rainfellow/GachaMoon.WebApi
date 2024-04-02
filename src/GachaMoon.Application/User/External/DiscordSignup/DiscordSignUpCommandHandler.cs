@@ -4,14 +4,9 @@ using GachaMoon.Domain.Users;
 
 namespace GachaMoon.Application.User.External.DiscordSignup;
 
-public class DiscordSignUpCommandHandler : IRequestHandler<DiscordSignUpCommand, DiscordSignUpCommandResult>
+public class DiscordSignUpCommandHandler(ApplicationDbContext dbContext) : IRequestHandler<DiscordSignUpCommand, DiscordSignUpCommandResult>
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public DiscordSignUpCommandHandler(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    private readonly ApplicationDbContext _dbContext = dbContext;
 
     public async Task<DiscordSignUpCommandResult> Handle(DiscordSignUpCommand request, CancellationToken cancellationToken)
     {
@@ -53,7 +48,8 @@ public class DiscordSignUpCommandHandler : IRequestHandler<DiscordSignUpCommand,
         {
             Account = connectedAccount,
             PremiumCurrencyAmount = 0,
-            WildcardSkillItemCount = 0
+            WildcardSkillItemCount = 0,
+            StandardBannerRollsAmount = 0
         };
     }
 }

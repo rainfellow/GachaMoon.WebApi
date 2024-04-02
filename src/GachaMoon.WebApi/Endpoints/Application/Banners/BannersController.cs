@@ -6,12 +6,8 @@ using Microsoft.AspNetCore.OutputCaching;
 
 namespace GachaMoon.WebApi.Endpoints.Application.Banners;
 
-public class BannersController : ApiControllerBase
+public class BannersController(ISender sender) : ApiControllerBase(sender)
 {
-    public BannersController(ISender sender) : base(sender)
-    {
-    }
-
     [AllowAnonymous]
     [OutputCache(Duration = 300)]
     [HttpGet("list")]

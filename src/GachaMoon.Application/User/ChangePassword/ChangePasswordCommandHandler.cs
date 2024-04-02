@@ -6,14 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Application.User.ChangePassword;
 
-public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand>
+public class ChangePasswordCommandHandler(ApplicationDbContext dbContext) : IRequestHandler<ChangePasswordCommand>
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public ChangePasswordCommandHandler(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    private readonly ApplicationDbContext _dbContext = dbContext;
 
     public async Task Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
     {

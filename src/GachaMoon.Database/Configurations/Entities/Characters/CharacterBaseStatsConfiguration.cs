@@ -10,20 +10,20 @@ public class CharacterBaseStatsConfiguration : ConfigurationBase<CharacterBaseSt
     protected override void ApplyConfiguration(EntityTypeBuilder<CharacterBaseStats> builder)
     {
         base.ApplyConfiguration(builder);
-        builder.Property(x => x.CharacterId).IsRequired();
-        builder.Property(x => x.CharacterLevel).IsRequired();
-        builder.Property(x => x.Attack).IsRequired();
-        builder.Property(x => x.Defence).IsRequired();
-        builder.Property(x => x.Health).IsRequired();
+        _ = builder.Property(x => x.CharacterId).IsRequired();
+        _ = builder.Property(x => x.CharacterLevel).IsRequired();
+        _ = builder.Property(x => x.Attack).IsRequired();
+        _ = builder.Property(x => x.Defence).IsRequired();
+        _ = builder.Property(x => x.Health).IsRequired();
 
-        builder.HasIndex(x => new { x.CharacterId, x.CharacterLevel }).WhereNotDeleted().IsUnique();
+        _ = builder.HasIndex(x => new { x.CharacterId, x.CharacterLevel }).WhereNotDeleted().IsUnique();
 
-        builder.HasOne(x => x.Character)
+        _ = builder.HasOne(x => x.Character)
             .WithMany()
             .HasForeignKey(x => x.CharacterId);
 
-        builder.HasData(new CharacterBaseStats[] {
-            new CharacterBaseStats {
+        _ = builder.HasData([
+            new() {
                 Id = 1,
                 CharacterId = 1,
                 CharacterLevel = 1,
@@ -31,7 +31,7 @@ public class CharacterBaseStatsConfiguration : ConfigurationBase<CharacterBaseSt
                 Defence = 80,
                 Health = 100
             },
-            new CharacterBaseStats {
+            new() {
                 Id = 2,
                 CharacterId = 2,
                 CharacterLevel = 1,
@@ -39,7 +39,7 @@ public class CharacterBaseStatsConfiguration : ConfigurationBase<CharacterBaseSt
                 Defence = 140,
                 Health = 100
             },
-            new CharacterBaseStats {
+            new() {
                 Id = 3,
                 CharacterId = 3,
                 CharacterLevel = 1,
@@ -47,7 +47,7 @@ public class CharacterBaseStatsConfiguration : ConfigurationBase<CharacterBaseSt
                 Defence = 70,
                 Health = 100
             },
-            new CharacterBaseStats {
+            new() {
                 Id = 4,
                 CharacterId = 4,
                 CharacterLevel = 1,
@@ -55,7 +55,7 @@ public class CharacterBaseStatsConfiguration : ConfigurationBase<CharacterBaseSt
                 Defence = 100,
                 Health = 140
             },
-            new CharacterBaseStats {
+            new() {
                 Id = 5,
                 CharacterId = 5,
                 CharacterLevel = 1,
@@ -63,7 +63,7 @@ public class CharacterBaseStatsConfiguration : ConfigurationBase<CharacterBaseSt
                 Defence = 50,
                 Health = 90
             },
-            new CharacterBaseStats {
+            new() {
                 Id = 6,
                 CharacterId = 6,
                 CharacterLevel = 1,
@@ -71,7 +71,7 @@ public class CharacterBaseStatsConfiguration : ConfigurationBase<CharacterBaseSt
                 Defence = 70,
                 Health = 100
             },
-            new CharacterBaseStats {
+            new() {
                 Id = 7,
                 CharacterId = 7,
                 CharacterLevel = 1,
@@ -79,6 +79,6 @@ public class CharacterBaseStatsConfiguration : ConfigurationBase<CharacterBaseSt
                 Defence = 90,
                 Health = 70
             },
-        });
+        ]);
     }
 }

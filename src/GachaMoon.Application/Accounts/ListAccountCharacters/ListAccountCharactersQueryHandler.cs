@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Application.Accounts.ListAccountCharacters;
 
-public class ListAccountCharactersQueryHandler : IRequestHandler<ListAccountCharactersQuery, ListAccountCharactersQueryResult>
+public class ListAccountCharactersQueryHandler(ApplicationDbContext dbContext) : IRequestHandler<ListAccountCharactersQuery, ListAccountCharactersQueryResult>
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public ListAccountCharactersQueryHandler(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    private readonly ApplicationDbContext _dbContext = dbContext;
 
     public async Task<ListAccountCharactersQueryResult> Handle(ListAccountCharactersQuery request, CancellationToken cancellationToken)
     {

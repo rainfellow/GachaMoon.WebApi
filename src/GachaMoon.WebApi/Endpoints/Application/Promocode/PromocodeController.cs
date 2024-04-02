@@ -4,12 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GachaMoon.WebApi.Endpoints.Application.Promocode;
 
-public class PromocodeController : ApiControllerBase
+public class PromocodeController(ISender sender) : ApiControllerBase(sender)
 {
-    public PromocodeController(ISender sender) : base(sender)
-    {
-    }
-
     [HttpPost("redeem")]
     public async Task<ActionResult<RedeemPromocodeCommandResult>> RedeemPromocode(
         [FromQuery] string promocode,

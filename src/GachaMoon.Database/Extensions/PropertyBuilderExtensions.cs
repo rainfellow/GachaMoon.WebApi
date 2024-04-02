@@ -26,7 +26,7 @@ public static class PropertyBuilderExtensions
             v => JsonSerializer.Deserialize<T>(JsonSerializer.Serialize(v, JsonSerializerOptions), JsonSerializerOptions)!
         );
 
-        propertyBuilder.HasConversion(converter);
+        _ = propertyBuilder.HasConversion(converter);
         propertyBuilder.Metadata.SetValueConverter(converter);
         propertyBuilder.Metadata.SetValueComparer(comparer);
 

@@ -9,11 +9,11 @@ public class PromocodeHistoryConfiguration : IEntityTypeConfiguration<PromocodeH
 {
     public void Configure(EntityTypeBuilder<PromocodeHistory> builder)
     {
-        builder.HasIndex(p => new { p.AccountId, p.PromoCodeId }).WhereNotDeleted().IsUnique();
-        builder.HasOne(p => p.Account)
+        _ = builder.HasIndex(p => new { p.AccountId, p.PromoCodeId }).WhereNotDeleted().IsUnique();
+        _ = builder.HasOne(p => p.Account)
             .WithMany()
             .HasForeignKey(p => p.AccountId);
-        builder.HasOne(p => p.Promocode)
+        _ = builder.HasOne(p => p.Promocode)
             .WithMany()
             .HasForeignKey(p => p.PromoCodeId);
     }

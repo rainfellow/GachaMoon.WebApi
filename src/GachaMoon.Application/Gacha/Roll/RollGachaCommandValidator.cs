@@ -8,5 +8,6 @@ public class RollGachaCommandValidator : AbstractValidator<RollGachaCommand>
     {
         Include(new AccountValidator());
         RuleFor(command => command.RollCount).GreaterThan(0);
+        RuleFor(command => command.RollCount).LessThanOrEqualTo(10);
     }
 }

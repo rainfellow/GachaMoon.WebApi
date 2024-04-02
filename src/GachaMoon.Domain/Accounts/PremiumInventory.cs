@@ -7,6 +7,7 @@ public class PremiumInventory : SoftDeleteEntityBase<long>
     public long AccountId { get; set; }
     public int PremiumCurrencyAmount { get; set; }
     public int WildcardSkillItemCount { get; set; }
+    public int StandardBannerRollsAmount { get; set; }
 
     public virtual Account Account { get; set; } = default!;
 }

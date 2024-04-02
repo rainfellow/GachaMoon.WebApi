@@ -13,10 +13,10 @@ public static class Injection
         return services.AddDbContextFactory<ApplicationDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), x =>
                 {
-                    x.EnableRetryOnFailure();
-                    x.CommandTimeout(30);
-                    x.MigrationsAssembly("GachaMoon.Database.Migrations");
-                    x.UseNodaTime();
+                    _ = x.EnableRetryOnFailure();
+                    _ = x.CommandTimeout(30);
+                    _ = x.MigrationsAssembly("GachaMoon.Database.Migrations");
+                    _ = x.UseNodaTime();
                 }
             )
         );

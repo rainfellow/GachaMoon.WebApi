@@ -13,40 +13,40 @@ namespace GachaMoon.Database.Migrations.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
+            _ = migrationBuilder.RenameColumn(
                 name: "PremiumCurrency",
                 table: "PremiumInventories",
                 newName: "WildcardSkillItemCount");
 
-            migrationBuilder.AddColumn<int>(
+            _ = migrationBuilder.AddColumn<int>(
                 name: "PremiumCurrencyAmount",
                 table: "PremiumInventories",
                 type: "integer",
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AddColumn<int>(
+            _ = migrationBuilder.AddColumn<int>(
                 name: "AbilityRange",
                 table: "CharacterAbilities",
                 type: "integer",
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AddColumn<int>(
+            _ = migrationBuilder.AddColumn<int>(
                 name: "TotalEpicRolls",
                 table: "AccountBannerStats",
                 type: "integer",
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AddColumn<int>(
+            _ = migrationBuilder.AddColumn<int>(
                 name: "TotalLegendaryRolls",
                 table: "AccountBannerStats",
                 type: "integer",
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.InsertData(
+            _ = migrationBuilder.InsertData(
                 table: "CharacterAbilities",
                 columns: new[] { "Id", "AbilityRange", "AbilityTarget", "AbilityType", "CreatedAt", "DeletedAt", "Description", "Name", "UpdatedAt" },
                 values: new object[,]
@@ -58,7 +58,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                     { 5L, 1, 3, 1, NodaTime.Instant.FromUnixTimeTicks(0L), null, "Бросает сюрикен в указанного противника, нанося урон в зависимости от силы атаки персонажа.", "Бросок сюрикена", NodaTime.Instant.FromUnixTimeTicks(0L) }
                 });
 
-            migrationBuilder.InsertData(
+            _ = migrationBuilder.InsertData(
                 table: "Characters",
                 columns: new[] { "Id", "CharacterType", "CreatedAt", "DeletedAt", "Name", "Rarity", "UpdatedAt" },
                 values: new object[,]
@@ -72,7 +72,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                     { 7L, 4, NodaTime.Instant.FromUnixTimeTicks(0L), null, "Кедонап", 1, NodaTime.Instant.FromUnixTimeTicks(0L) }
                 });
 
-            migrationBuilder.InsertData(
+            _ = migrationBuilder.InsertData(
                 table: "CharacterBaseStats",
                 columns: new[] { "Id", "Attack", "CharacterId", "CharacterLevel", "CreatedAt", "Defence", "DeletedAt", "Health", "UpdatedAt" },
                 values: new object[,]
@@ -86,7 +86,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                     { 7L, 130, 7L, 1, NodaTime.Instant.FromUnixTimeTicks(0L), 90, null, 70, NodaTime.Instant.FromUnixTimeTicks(0L) }
                 });
 
-            migrationBuilder.InsertData(
+            _ = migrationBuilder.InsertData(
                 table: "DefaultCharacterAbilities",
                 columns: new[] { "Id", "AbilityType", "CharacterAbilityId", "CharacterId", "CreatedAt", "DeletedAt", "UpdatedAt" },
                 values: new object[,]
@@ -121,7 +121,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                     { 28L, 4, 4L, 7L, NodaTime.Instant.FromUnixTimeTicks(0L), null, NodaTime.Instant.FromUnixTimeTicks(0L) }
                 });
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_ExternalUsers_UserType_Identifier",
                 table: "ExternalUsers",
                 columns: new[] { "UserType", "Identifier" },
@@ -132,262 +132,262 @@ namespace GachaMoon.Database.Migrations.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropIndex(
+            _ = migrationBuilder.DropIndex(
                 name: "IX_ExternalUsers_UserType_Identifier",
                 table: "ExternalUsers");
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterBaseStats",
                 keyColumn: "Id",
                 keyValue: 1L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterBaseStats",
                 keyColumn: "Id",
                 keyValue: 2L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterBaseStats",
                 keyColumn: "Id",
                 keyValue: 3L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterBaseStats",
                 keyColumn: "Id",
                 keyValue: 4L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterBaseStats",
                 keyColumn: "Id",
                 keyValue: 5L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterBaseStats",
                 keyColumn: "Id",
                 keyValue: 6L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterBaseStats",
                 keyColumn: "Id",
                 keyValue: 7L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 1L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 2L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 3L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 4L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 5L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 6L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 7L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 8L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 9L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 10L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 11L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 12L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 13L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 14L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 15L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 16L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 17L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 18L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 19L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 20L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 21L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 22L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 23L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 24L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 25L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 26L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 27L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "DefaultCharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 28L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 1L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 2L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 3L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 4L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "CharacterAbilities",
                 keyColumn: "Id",
                 keyValue: 5L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "Characters",
                 keyColumn: "Id",
                 keyValue: 1L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "Characters",
                 keyColumn: "Id",
                 keyValue: 2L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "Characters",
                 keyColumn: "Id",
                 keyValue: 3L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "Characters",
                 keyColumn: "Id",
                 keyValue: 4L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "Characters",
                 keyColumn: "Id",
                 keyValue: 5L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "Characters",
                 keyColumn: "Id",
                 keyValue: 6L);
 
-            migrationBuilder.DeleteData(
+            _ = migrationBuilder.DeleteData(
                 table: "Characters",
                 keyColumn: "Id",
                 keyValue: 7L);
 
-            migrationBuilder.DropColumn(
+            _ = migrationBuilder.DropColumn(
                 name: "PremiumCurrencyAmount",
                 table: "PremiumInventories");
 
-            migrationBuilder.DropColumn(
+            _ = migrationBuilder.DropColumn(
                 name: "AbilityRange",
                 table: "CharacterAbilities");
 
-            migrationBuilder.DropColumn(
+            _ = migrationBuilder.DropColumn(
                 name: "TotalEpicRolls",
                 table: "AccountBannerStats");
 
-            migrationBuilder.DropColumn(
+            _ = migrationBuilder.DropColumn(
                 name: "TotalLegendaryRolls",
                 table: "AccountBannerStats");
 
-            migrationBuilder.RenameColumn(
+            _ = migrationBuilder.RenameColumn(
                 name: "WildcardSkillItemCount",
                 table: "PremiumInventories",
                 newName: "PremiumCurrency");

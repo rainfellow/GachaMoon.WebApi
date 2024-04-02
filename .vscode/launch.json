@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/GachaMoon.WebApi/bin/Debug/net7.0/GachaMoon.WebApi.dll",
+            "program": "${workspaceFolder}/src/GachaMoon.WebApi/bin/Debug/net8.0/win-x64/GachaMoon.WebApi.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/GachaMoon.WebApi",
             "stopAtEntry": false,

@@ -8,8 +8,8 @@ public class NpcCharacterConfiguration : IEntityTypeConfiguration<NpcCharacter>
 {
     public void Configure(EntityTypeBuilder<NpcCharacter> builder)
     {
-        builder.Property(n => n.Name).IsRequired();
-        builder.Property(n => n.NpcType).IsRequired();
-        builder.Property(n => n.ChallengeRating).IsRequired();
+        _ = builder.Property(n => n.Name).IsRequired();
+        _ = builder.Property(n => n.NpcType).IsRequired();
+        _ = builder.Property(n => n.ChallengeRating).IsRequired();
     }
 }

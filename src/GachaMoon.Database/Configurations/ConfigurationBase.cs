@@ -24,6 +24,6 @@ public abstract class ConfigurationBase<TEntity, TKey> : ConfigurationBase<TEnti
     protected override void ApplyConfiguration(EntityTypeBuilder<TEntity> builder)
     {
         base.ApplyConfiguration(builder);
-        builder.HasKey(e => e.Id);
+        _ = builder.HasKey(e => e.Id);
     }
 }

@@ -7,8 +7,8 @@
     <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="8.3.0-preview.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -24,7 +24,5 @@
     <ProjectReference Include="..\GachaMoon.Services\GachaMoon.Services.csproj" />
     <ProjectReference Include="..\GachaMoon.Services.Abstractions\GachaMoon.Services.Abstractions.csproj" />
     <ProjectReference Include="..\GachaMoon.Configurations\GachaMoon.Configurations.csproj" />
-    <ProjectReference Include="..\GachaMoon.Configurations\GachaMoon.Configurations.csproj" />
   </ItemGroup>
-
 </Project>

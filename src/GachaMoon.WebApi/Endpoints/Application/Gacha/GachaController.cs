@@ -4,12 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GachaMoon.WebApi.Endpoints.Application.Gacha;
 
-public class GachaController : ApiControllerBase
+public class GachaController(ISender sender) : ApiControllerBase(sender)
 {
-    public GachaController(ISender sender) : base(sender)
-    {
-    }
-
     [HttpPost("roll")]
     public async Task<ActionResult<RollGachaCommandResult>> RollGacha(
         [FromQuery] long bannerId,

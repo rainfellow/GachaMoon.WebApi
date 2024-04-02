@@ -1,17 +1,9 @@
 namespace GachaMoon.Utilities.Jwt;
 
-public class JwtTokenData
+public class JwtTokenData(long userId, long accountId, bool isAdmin, bool isInternalUser)
 {
-    public long UserId { get; private set; }
-    public long AccountId { get; private set; }
-    public bool IsAdmin { get; private set; }
-    public bool IsInternalUser { get; private set; }
-
-    public JwtTokenData(long userId, long accountId, bool isAdmin, bool isInternalUser)
-    {
-        UserId = userId;
-        AccountId = accountId;
-        IsAdmin = isAdmin;
-        IsInternalUser = isInternalUser;
-    }
+    public long UserId { get; private set; } = userId;
+    public long AccountId { get; private set; } = accountId;
+    public bool IsAdmin { get; private set; } = isAdmin;
+    public bool IsInternalUser { get; private set; } = isInternalUser;
 }

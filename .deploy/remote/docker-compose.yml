@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  db:
+    container_name: gachamoon-db
+    image: postgres:15.2
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+      PGDATA: /var/lib/postgresql/data/${DB_DATABASE}/
+    hostname: db
+    ports:
+      - "5433:5433"
+    volumes:
+      - gachamoon-pg-data-volume:/var/lib/postgresql/data/${DB_DATABASE}  
+    command: -p 5433
+
+  api:
+    container_name: gachamoon-api
+    image: 192.168.31.95:32768/gachamoon-webapi/gachamoon-webapi:latest # 185.241.195.3:5000/gachamoon-webapi/gachamoon-webapi:latest
+    restart: always
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: "http://+:8080"
+    hostname: gachamoon-api
+    volumes:
+      - secrets:/root/.microsoft/usersecrets:ro
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  gachamoon-pg-data-volume:
+  secrets:

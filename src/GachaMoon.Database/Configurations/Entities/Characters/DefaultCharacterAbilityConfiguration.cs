@@ -10,192 +10,192 @@ public class DefaultCharacterAbilityConfiguration : ConfigurationBase<DefaultCha
     {
         base.ApplyConfiguration(builder);
 
-        builder.Property(x => x.CharacterId).IsRequired();
-        builder.Property(x => x.CharacterAbilityId).IsRequired();
-        builder.Property(x => x.AbilityType).IsRequired();
+        _ = builder.Property(x => x.CharacterId).IsRequired();
+        _ = builder.Property(x => x.CharacterAbilityId).IsRequired();
+        _ = builder.Property(x => x.AbilityType).IsRequired();
 
         // Add foreign key relationship to Character using CharacterId
-        builder.HasOne(x => x.Character)
+        _ = builder.HasOne(x => x.Character)
             .WithMany()
             .HasForeignKey(x => x.CharacterId);
 
         // Add foreign key relationship to CharacterAbility using CharacterAbilityId
-        builder.HasOne(x => x.CharacterAbility)
+        _ = builder.HasOne(x => x.CharacterAbility)
             .WithMany()
             .HasForeignKey(x => x.CharacterAbilityId);
 
         // Add composite index for CharacterId and AbilityType
-        builder.HasIndex(x => new { x.CharacterId, x.AbilityType }).WhereNotDeleted().IsUnique();
+        _ = builder.HasIndex(x => new { x.CharacterId, x.AbilityType }).WhereNotDeleted().IsUnique();
 
-        builder.HasData(new DefaultCharacterAbility[] {
-            new DefaultCharacterAbility {
+        _ = builder.HasData([
+            new() {
                 Id = 1,
                 CharacterId = 1,
                 CharacterAbilityId = 1,
                 AbilityType = AbilityType.Basic
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 2,
                 CharacterId = 1,
                 CharacterAbilityId = 2,
                 AbilityType = AbilityType.Skill
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 3,
                 CharacterId = 1,
                 CharacterAbilityId = 3,
                 AbilityType = AbilityType.Ultimate
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 4,
                 CharacterId = 1,
                 CharacterAbilityId = 4,
                 AbilityType = AbilityType.Passive
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 5,
                 CharacterId = 2,
                 CharacterAbilityId = 1,
                 AbilityType = AbilityType.Basic
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 6,
                 CharacterId = 2,
                 CharacterAbilityId = 2,
                 AbilityType = AbilityType.Skill
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 7,
                 CharacterId = 2,
                 CharacterAbilityId = 3,
                 AbilityType = AbilityType.Ultimate
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 8,
                 CharacterId = 2,
                 CharacterAbilityId = 4,
                 AbilityType = AbilityType.Passive
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 9,
                 CharacterId = 3,
                 CharacterAbilityId = 1,
                 AbilityType = AbilityType.Basic
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 10,
                 CharacterId = 3,
                 CharacterAbilityId = 2,
                 AbilityType = AbilityType.Skill
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 11,
                 CharacterId = 3,
                 CharacterAbilityId = 3,
                 AbilityType = AbilityType.Ultimate
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 12,
                 CharacterId = 3,
                 CharacterAbilityId = 4,
                 AbilityType = AbilityType.Passive
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 13,
                 CharacterId = 4,
                 CharacterAbilityId = 1,
                 AbilityType = AbilityType.Basic
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 14,
                 CharacterId = 4,
                 CharacterAbilityId = 2,
                 AbilityType = AbilityType.Skill
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 15,
                 CharacterId = 4,
                 CharacterAbilityId = 3,
                 AbilityType = AbilityType.Ultimate
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 16,
                 CharacterId = 4,
                 CharacterAbilityId = 4,
                 AbilityType = AbilityType.Passive
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 17,
                 CharacterId = 5,
                 CharacterAbilityId = 1,
                 AbilityType = AbilityType.Basic
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 18,
                 CharacterId = 5,
                 CharacterAbilityId = 2,
                 AbilityType = AbilityType.Skill
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 19,
                 CharacterId = 5,
                 CharacterAbilityId = 3,
                 AbilityType = AbilityType.Ultimate
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 20,
                 CharacterId = 5,
                 CharacterAbilityId = 4,
                 AbilityType = AbilityType.Passive
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 21,
                 CharacterId = 6,
                 CharacterAbilityId = 5,
                 AbilityType = AbilityType.Basic
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 22,
                 CharacterId = 6,
                 CharacterAbilityId = 2,
                 AbilityType = AbilityType.Skill
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 23,
                 CharacterId = 6,
                 CharacterAbilityId = 3,
                 AbilityType = AbilityType.Ultimate
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 24,
                 CharacterId = 6,
                 CharacterAbilityId = 4,
                 AbilityType = AbilityType.Passive
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 25,
                 CharacterId = 7,
                 CharacterAbilityId = 1,
                 AbilityType = AbilityType.Basic
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 26,
                 CharacterId = 7,
                 CharacterAbilityId = 2,
                 AbilityType = AbilityType.Skill
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 27,
                 CharacterId = 7,
                 CharacterAbilityId = 3,
                 AbilityType = AbilityType.Ultimate
             },
-            new DefaultCharacterAbility {
+            new() {
                 Id = 28,
                 CharacterId = 7,
                 CharacterAbilityId = 4,
                 AbilityType = AbilityType.Passive
             }
-        });
+        ]);
     }
 }

@@ -8,7 +8,7 @@ public static class SortingsHelper
     {
         if (query == null)
         {
-            return Array.Empty<SortingBy>();
+            return [];
         }
 
         var keys = query.Split(separator);

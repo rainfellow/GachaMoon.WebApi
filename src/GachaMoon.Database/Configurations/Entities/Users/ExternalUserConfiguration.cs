@@ -10,25 +10,25 @@ public class ExternalUserConfiguration : ConfigurationBase<ExternalUser>
     {
         base.ApplyConfiguration(builder);
 
-        builder.Property(x => x.AccountId)
+        _ = builder.Property(x => x.AccountId)
             .IsRequired();
 
-        builder.Property(x => x.Identifier)
+        _ = builder.Property(x => x.Identifier)
             .HasMaxLength(255)
             .IsRequired();
 
-        builder.Property(x => x.UserType)
+        _ = builder.Property(x => x.UserType)
             .IsRequired();
 
-        builder.HasIndex(u => new { u.UserType, u.AccountId })
+        _ = builder.HasIndex(u => new { u.UserType, u.AccountId })
             .WhereNotDeleted()
             .IsUnique();
 
-        builder.HasIndex(u => new { u.UserType, u.Identifier })
+        _ = builder.HasIndex(u => new { u.UserType, u.Identifier })
             .WhereNotDeleted()
             .IsUnique();
 
-        builder.HasOne(x => x.Account)
+        _ = builder.HasOne(x => x.Account)
             .WithMany() // Assuming there is a navigation property for Account
             .HasForeignKey(x => x.AccountId);
     }

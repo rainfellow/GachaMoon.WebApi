@@ -8,59 +8,59 @@ public class CharacterConfiguration : ConfigurationBase<Character>
     {
         base.ApplyConfiguration(builder);
 
-        builder.Property(x => x.Name)
+        _ = builder.Property(x => x.Name)
             .HasMaxLength(255)
             .IsRequired();
 
-        builder.Property(x => x.CharacterType)
+        _ = builder.Property(x => x.CharacterType)
             .IsRequired();
 
-        builder.Property(x => x.Rarity)
+        _ = builder.Property(x => x.Rarity)
             .IsRequired();
 
-        builder.HasData(new Character[] {
-            new Character {
+        _ = builder.HasData([
+            new() {
                 Id = 1,
                 CharacterType = CharacterType.Destruction,
-                Name = "Ромихи",
+                Name = "Аккихи",
                 Rarity = CharacterRarity.Legendary
             },
-            new Character {
+            new() {
                 Id = 2,
                 CharacterType = CharacterType.Protection,
                 Name = "Шувидор",
                 Rarity = CharacterRarity.Legendary
             },
-            new Character {
+            new() {
                 Id = 3,
                 CharacterType = CharacterType.Trickery,
-                Name = "Пациент 163",
+                Name = "Кадзуал",
                 Rarity = CharacterRarity.Legendary
             },
-            new Character {
+            new() {
                 Id = 4,
                 CharacterType = CharacterType.Creation,
                 Name = "Чехов",
                 Rarity = CharacterRarity.Epic
             },
-            new Character {
+            new() {
                 Id = 5,
                 CharacterType = CharacterType.Destruction,
                 Name = "Черная Мамба",
                 Rarity = CharacterRarity.Epic
             },
-            new Character {
+            new() {
                 Id = 6,
                 CharacterType = CharacterType.Destruction,
                 Name = "Яна Цист",
                 Rarity = CharacterRarity.Epic
             },
-            new Character {
+            new() {
                 Id = 7,
                 CharacterType = CharacterType.Trickery,
-                Name = "Кедонап",
+                Name = "Панкоед",
                 Rarity = CharacterRarity.Epic
             },
-        });
+        ]);
     }
 }

@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace GachaMoon.WebApi.Middlewares;
 
 #pragma warning disable IDE0051
-public class CustomProblemDetailsFactory : ProblemDetailsFactory
+/// <inheritdoc />
+public class CustomProblemDetailsFactory(ILogger<CustomProblemDetailsFactory> logger) : ProblemDetailsFactory
 {
     private const string BaseStatusCodeType = "https://httpstatuses.com/";
 
@@ -24,13 +25,7 @@ public class CustomProblemDetailsFactory : ProblemDetailsFactory
         { typeof(ArgumentException), x => x.NotFoundExceptionHandler},
     };
 
-    private readonly ILogger<CustomProblemDetailsFactory> _logger;
-
-    /// <inheritdoc />
-    public CustomProblemDetailsFactory(ILogger<CustomProblemDetailsFactory> logger)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<CustomProblemDetailsFactory> _logger = logger;
 
     /// <inheritdoc />
     public override ProblemDetails CreateProblemDetails(
