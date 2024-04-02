@@ -27,7 +27,7 @@ public class RollGachaCommandHandler(ApplicationDbContext dbContext) : IRequestH
             .Select(x => new { x.Id, x.Type })
             .FirstOrDefaultAsync(cancellationToken) ?? throw new NotImplementedException();
 
-        var availableRolls = (premiumInventory.PremiumCurrencyAmount / GameConstants.PremiumCurrencyRollCost) + banner.Type == BannerType.Standard ? premiumInventory.StandardBannerRollsAmount : 0;
+        var availableRolls = (premiumInventory.PremiumCurrencyAmount / GameConstants.PremiumCurrencyRollCost) + (banner.Type == BannerType.Standard ? premiumInventory.StandardBannerRollsAmount : 0);
 
         if (availableRolls < request.RollCount)
         {
