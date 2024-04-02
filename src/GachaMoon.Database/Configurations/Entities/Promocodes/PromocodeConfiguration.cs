@@ -14,15 +14,21 @@ public class PromocodeConfiguration : IEntityTypeConfiguration<Promocode>
         _ = builder.HasData([
             new() {
                 Id = 1,
-                Code = "APRILFOOLS"
+                Code = "APRILFOOLS",
+                ExpiryDate = new DateOnly(year:2025, month:4, day:1),
+                UsesLeft = 100
             },
             new() {
                 Id = 2,
-                Code = "SORRYFROZEN"
+                Code = "SORRYFROZEN",
+                ExpiryDate = new DateOnly(year:2025, month:4, day:1),
+                UsesLeft = 100
             },
             new() {
                 Id = 3,
-                Code = "GIVEMEROLLS"
+                Code = "GIVEMEROLLS",
+                ExpiryDate = new DateOnly(year:2025, month:4, day:1),
+                UsesLeft = 100
             }
         ]);
     }

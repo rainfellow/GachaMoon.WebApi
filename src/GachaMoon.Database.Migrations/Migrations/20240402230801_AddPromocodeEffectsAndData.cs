@@ -78,9 +78,9 @@ namespace GachaMoon.Database.Migrations.Migrations
                 columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "ExpiryDate", "UpdatedAt", "UsesLeft" },
                 values: new object[,]
                 {
-                    { 1L, "APRILFOOLS", NodaTime.Instant.FromUnixTimeTicks(0L), null, new DateOnly(1, 1, 1), NodaTime.Instant.FromUnixTimeTicks(0L), 0 },
-                    { 2L, "SORRYFROZEN", NodaTime.Instant.FromUnixTimeTicks(0L), null, new DateOnly(1, 1, 1), NodaTime.Instant.FromUnixTimeTicks(0L), 0 },
-                    { 3L, "GIVEMEROLLS", NodaTime.Instant.FromUnixTimeTicks(0L), null, new DateOnly(1, 1, 1), NodaTime.Instant.FromUnixTimeTicks(0L), 0 }
+                    { 1L, "APRILFOOLS", NodaTime.Instant.FromUnixTimeTicks(0L), null, new DateOnly(2025, 4, 1), NodaTime.Instant.FromUnixTimeTicks(0L), 100 },
+                    { 2L, "SORRYFROZEN", NodaTime.Instant.FromUnixTimeTicks(0L), null, new DateOnly(2025, 4, 1), NodaTime.Instant.FromUnixTimeTicks(0L), 100 },
+                    { 3L, "GIVEMEROLLS", NodaTime.Instant.FromUnixTimeTicks(0L), null, new DateOnly(2025, 4, 1), NodaTime.Instant.FromUnixTimeTicks(0L), 100 }
                 });
 
             migrationBuilder.InsertData(

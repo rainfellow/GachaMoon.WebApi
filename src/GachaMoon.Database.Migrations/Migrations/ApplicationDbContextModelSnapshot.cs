@@ -1078,27 +1078,27 @@ namespace GachaMoon.Database.Migrations.Migrations
                             Id = 1L,
                             Code = "APRILFOOLS",
                             CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
-                            ExpiryDate = new DateOnly(1, 1, 1),
+                            ExpiryDate = new DateOnly(2025, 4, 1),
                             UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
-                            UsesLeft = 0
+                            UsesLeft = 100
                         },
                         new
                         {
                             Id = 2L,
                             Code = "SORRYFROZEN",
                             CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
-                            ExpiryDate = new DateOnly(1, 1, 1),
+                            ExpiryDate = new DateOnly(2025, 4, 1),
                             UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
-                            UsesLeft = 0
+                            UsesLeft = 100
                         },
                         new
                         {
                             Id = 3L,
                             Code = "GIVEMEROLLS",
                             CreatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
-                            ExpiryDate = new DateOnly(1, 1, 1),
+                            ExpiryDate = new DateOnly(2025, 4, 1),
                             UpdatedAt = NodaTime.Instant.FromUnixTimeTicks(0L),
-                            UsesLeft = 0
+                            UsesLeft = 100
                         });
                 });
 
