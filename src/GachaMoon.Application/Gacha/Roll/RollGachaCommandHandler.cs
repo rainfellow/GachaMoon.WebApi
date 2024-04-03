@@ -98,13 +98,13 @@ public class RollGachaCommandHandler(ApplicationDbContext dbContext) : IRequestH
             accountBannerData.RollsToEpic--;
             accountBannerData.TotalRolls++;
         }
-        await ProcessResults(request, premiumInventory, result, cancellationToken);
+        await ProcessResults(request, banner.Type, premiumInventory, result, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         return new RollGachaCommandResult(result);
     }
 
-    private async Task ProcessResults(RollGachaCommand request, PremiumInventory premiumInventory, ICollection<RollData> rolls, CancellationToken cancellationToken)
+    private async Task ProcessResults(RollGachaCommand request, BannerType bannerType, PremiumInventory premiumInventory, ICollection<RollData> rolls, CancellationToken cancellationToken)
     {
         var charList = await _dbContext.AccountCharacters
             .Where(x => x.AccountId == request.AccountId)
@@ -114,7 +114,14 @@ public class RollGachaCommandHandler(ApplicationDbContext dbContext) : IRequestH
 
         foreach (var rollResult in rolls)
         {
-            premiumInventory.PremiumCurrencyAmount -= GameConstants.PremiumCurrencyRollCost;
+            if (bannerType == BannerType.Standard && premiumInventory.StandardBannerRollsAmount > 0)
+            {
+                premiumInventory.StandardBannerRollsAmount -= 1;
+            }
+            else
+            {
+                premiumInventory.PremiumCurrencyAmount -= GameConstants.PremiumCurrencyRollCost;
+            }
             var resultString = "";
             switch (rollResult.Result)
             {
