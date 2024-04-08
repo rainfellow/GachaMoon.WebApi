@@ -937,6 +937,45 @@ namespace GachaMoon.Database.Migrations.Migrations
                         });
                 });
 
+            modelBuilder.Entity("GachaMoon.Domain.ExternalServices.AccountConnectedExternalService", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Instant>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ExternalServiceProvider")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ExternalServiceType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ExternalServiceUserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Instant>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId", "ExternalServiceType")
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" is NULL");
+
+                    b.ToTable("AccountExternalServices");
+                });
+
             modelBuilder.Entity("GachaMoon.Domain.Npcs.NpcCharacter", b =>
                 {
                     b.Property<long>("Id")
@@ -1408,6 +1447,17 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Navigation("Character");
 
                     b.Navigation("CharacterAbility");
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.ExternalServices.AccountConnectedExternalService", b =>
+                {
+                    b.HasOne("GachaMoon.Domain.Accounts.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Npcs.NpcCharacterAbility", b =>

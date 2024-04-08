@@ -24,5 +24,6 @@
     <ProjectReference Include="..\GachaMoon.Services\GachaMoon.Services.csproj" />
     <ProjectReference Include="..\GachaMoon.Services.Abstractions\GachaMoon.Services.Abstractions.csproj" />
     <ProjectReference Include="..\GachaMoon.Configurations\GachaMoon.Configurations.csproj" />
+    <ProjectReference Include="..\GachaMoon.Clients\GachaMoon.Clients.csproj" />
   </ItemGroup>
 </Project>

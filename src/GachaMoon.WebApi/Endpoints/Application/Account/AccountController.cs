@@ -1,6 +1,8 @@
 using GachaMoon.Application.Accounts.AccountBannerInfo;
 using GachaMoon.Application.Accounts.AccountInfo;
 using GachaMoon.Application.Accounts.ListAccountCharacters;
+using GachaMoon.Application.ExternalServices.ConnectExternalService;
+using GachaMoon.Domain.ExternalServices;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +33,18 @@ public class AccountController(ISender sender) : ApiControllerBase(sender)
         CancellationToken cancellationToken)
     {
         var query = new ListAccountCharactersQuery(GetAccountId());
+        var result = await Sender.Send(query, cancellationToken);
+        return Ok(result);
+    }
+
+    [HttpPost("connectservice")]
+    public async Task<ActionResult<ConnectExternalServiceCommandResult>> ConnectExternalService(
+        [FromQuery] ExternalServiceType serviceType,
+        [FromQuery] ExternalServiceProvider serviceProvider,
+        [FromQuery] string serviceIdentifier,
+        CancellationToken cancellationToken)
+    {
+        var query = new ConnectExternalServiceCommand(GetAccountId(), serviceType, serviceProvider, serviceIdentifier);
         var result = await Sender.Send(query, cancellationToken);
         return Ok(result);
     }

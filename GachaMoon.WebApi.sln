@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.MediatR.Common", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Configurations", "src\GachaMoon.Configurations\GachaMoon.Configurations.csproj", "{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GachaMoon.Clients", "src\GachaMoon.Clients\GachaMoon.Clients.csproj", "{FDD83566-86A4-426D-86FB-9F8FC7A27250}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,12 +79,13 @@ Global
 		{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD83566-86A4-426D-86FB-9F8FC7A27250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD83566-86A4-426D-86FB-9F8FC7A27250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD83566-86A4-426D-86FB-9F8FC7A27250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD83566-86A4-426D-86FB-9F8FC7A27250}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8B49107A-D318-4873-A88D-F01CD002647B}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{694F4ED8-562A-4B5B-917E-3727296D9369} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
@@ -96,5 +99,9 @@ Global
 		{D029B5E4-2BFA-40C5-BCD0-D66525DB9DA8} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
 		{EEFA3530-B45B-4C15-8C00-99C52CEE4C2E} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
 		{8584BA53-1F7A-4685-9A0E-B1972A8DC6B5} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+		{FDD83566-86A4-426D-86FB-9F8FC7A27250} = {7C1F927B-0075-4B49-837F-A15E7990F99C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B49107A-D318-4873-A88D-F01CD002647B}
 	EndGlobalSection
 EndGlobal

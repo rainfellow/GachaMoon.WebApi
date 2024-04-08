@@ -6,6 +6,7 @@ using GachaMoon.Database.Configurations.Entities.Users;
 using GachaMoon.Domain.Accounts;
 using GachaMoon.Domain.Banners;
 using GachaMoon.Domain.Characters;
+using GachaMoon.Domain.ExternalServices;
 using GachaMoon.Domain.Npcs;
 using GachaMoon.Domain.Promocodes;
 using GachaMoon.Domain.Users;
@@ -84,6 +85,8 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
         _ = modelBuilder.ApplyConfiguration(new PromocodeConfiguration());
         _ = modelBuilder.ApplyConfiguration(new PromocodeEffectConfiguration());
         _ = modelBuilder.ApplyConfiguration(new PromocodeHistoryConfiguration());
+
+        _ = modelBuilder.ApplyConfiguration(new AccountConnectedExternalServiceConfiguration());
     }
 
 #nullable disable
@@ -112,6 +115,8 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
     public DbSet<NpcCharacter> NpcCharacters { get; set; }
     public DbSet<NpcCharacterAbility> NpcCharacterAbilities { get; set; }
     public DbSet<NpcCharacterBaseStats> NpcCharacterBaseStats { get; set; }
+
+    public DbSet<AccountConnectedExternalService> AccountExternalServices { get; set; }
 
 #nullable enable
 }

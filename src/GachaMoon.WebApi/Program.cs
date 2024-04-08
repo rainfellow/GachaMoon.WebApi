@@ -22,6 +22,10 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using NodaTime.Serialization.SystemTextJson;
 using NodaTime;
+using GachaMoon.Services.Abstractions.Anime;
+using GachaMoon.Services.Anime;
+using GachaMoon.Clients.Anime;
+using GachaMoon.Clients.AnimeList;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.ApplyHostedAppConfiguration(args);
@@ -75,6 +79,10 @@ builder.Services.AddAndValidateOptions<AppHostOptions>(builder.Configuration, "H
 builder.Services.AddAndValidateOptions<ApiKeyOptions>(builder.Configuration, "ApiKeyOptions");
 
 builder.Services.AddSystemClockProvider();
+
+builder.Services.AddAnimeClients();
+builder.Services.AddUserAnimeListClients();
+builder.Services.AddSingleton<IAnimeScreenshotQuizService, JsonAnimeScreenshotQuizService>();
 
 builder.Services.AddResponseCaching();
 builder.Services.AddOutputCache(options =>
