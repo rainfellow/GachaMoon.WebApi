@@ -359,3 +359,4 @@ MigrationBackup/
 **/appsettings.Development.json
 **/appsettings.Production.json
 deploy.sh
+*.sh
