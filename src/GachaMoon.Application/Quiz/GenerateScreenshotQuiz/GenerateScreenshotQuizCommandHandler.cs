@@ -1,15 +1,22 @@
-using GachaMoon.Database;
 using GachaMoon.Services.Abstractions.Anime;
 
 namespace GachaMoon.Application.Quiz.GenerateScreenshotQuiz;
 
-public class GenerateScreenshotQuizCommandHandler(ApplicationDbContext dbContext, IAnimeScreenshotQuizService screenshotQuizService) : IRequestHandler<GenerateScreenshotQuizCommand, GenerateScreenshotQuizCommandResult>
+public class GenerateScreenshotQuizCommandHandler(IAnimeScreenshotQuizService screenshotQuizService, IUserSavedAnimeListService animeListService) : IRequestHandler<GenerateScreenshotQuizCommand, GenerateScreenshotQuizCommandResult>
 {
-    private readonly ApplicationDbContext _dbContext = dbContext;
     private readonly IAnimeScreenshotQuizService _screenshotQuizService = screenshotQuizService;
+    private readonly IUserSavedAnimeListService _animeListService = animeListService;
 
     public async Task<GenerateScreenshotQuizCommandResult> Handle(GenerateScreenshotQuizCommand request, CancellationToken cancellationToken)
     {
-        return new GenerateScreenshotQuizCommandResult(await _screenshotQuizService.GenerateQuestion());
+        if (request.UseConnectedAccount)
+        {
+            var userAnimeList = await _animeListService.GetAnimeList(request.AccountId, cancellationToken);
+            return new GenerateScreenshotQuizCommandResult(await _screenshotQuizService.GenerateQuestion(userAnimeList));
+        }
+        else
+        {
+            return new GenerateScreenshotQuizCommandResult(await _screenshotQuizService.GenerateQuestion());
+        }
     }
 }

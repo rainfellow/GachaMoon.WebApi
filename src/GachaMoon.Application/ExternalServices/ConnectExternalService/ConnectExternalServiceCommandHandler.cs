@@ -1,13 +1,15 @@
 using GachaMoon.Common.Query;
 using GachaMoon.Database;
 using GachaMoon.Domain.ExternalServices;
+using GachaMoon.Services.Abstractions.Clients;
 using Microsoft.EntityFrameworkCore;
 
 namespace GachaMoon.Application.ExternalServices.ConnectExternalService;
 
-public class ConnectExternalServiceCommandHandler(ApplicationDbContext dbContext) : IRequestHandler<ConnectExternalServiceCommand, ConnectExternalServiceCommandResult>
+public class ConnectExternalServiceCommandHandler(ApplicationDbContext dbContext, IUserAnimeListClient userAnimeListClient) : IRequestHandler<ConnectExternalServiceCommand, ConnectExternalServiceCommandResult>
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
+    private readonly IUserAnimeListClient _userAnimeListClient = userAnimeListClient;
 
     public async Task<ConnectExternalServiceCommandResult> Handle(ConnectExternalServiceCommand request, CancellationToken cancellationToken)
     {
@@ -23,6 +25,7 @@ public class ConnectExternalServiceCommandHandler(ApplicationDbContext dbContext
         {
             connectedService.ExternalServiceProvider = request.ServiceProvider;
             connectedService.ExternalServiceUserId = request.ExternalServiceUserId;
+            connectedService.UserAnimeList = await GetMALAnimeList(request.ExternalServiceUserId);
         }
         else
         {
@@ -32,10 +35,27 @@ public class ConnectExternalServiceCommandHandler(ApplicationDbContext dbContext
                 ExternalServiceType = request.ServiceType,
                 ExternalServiceProvider = request.ServiceProvider,
                 ExternalServiceUserId = request.ExternalServiceUserId,
+                UserAnimeList = await GetMALAnimeList(request.ExternalServiceUserId)
             });
         }
 
         await _dbContext.SaveChangesAsync();
-        return new ConnectExternalServiceCommandResult();
+        return new ConnectExternalServiceCommandResult
+        {
+            ExternalServiceUserId = request.ExternalServiceUserId
+        };
+    }
+
+    private async Task<UserAnimeListData> GetMALAnimeList(string username)
+    {
+        var animeList = await _userAnimeListClient.GetUserAnimeList(username);
+        return new UserAnimeListData
+        {
+            UserAnimes = animeList.Select(x => new UserAnimeData
+            {
+                Id = x.Id,
+                Title = x.Title
+            }).ToList()
+        };
     }
 }

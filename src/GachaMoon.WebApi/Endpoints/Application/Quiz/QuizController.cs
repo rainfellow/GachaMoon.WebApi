@@ -9,15 +9,16 @@ public class QuizController(ISender sender) : ApiControllerBase(sender)
 {
     [HttpPost("screenshots/generate")]
     public async Task<ActionResult<GenerateScreenshotQuizCommandResult>> GenerateQuestion(
-        CancellationToken cancellationToken)
+        [FromQuery] bool useList = false,
+        CancellationToken cancellationToken = default)
     {
-        var command = new GenerateScreenshotQuizCommand(GetAccountId(), false);
+        var command = new GenerateScreenshotQuizCommand(GetAccountId(), useList);
         var result = await Sender.Send(command, cancellationToken);
         return Ok(result);
     }
 
     [HttpGet("screenshots/check")]
-    public async Task<ActionResult<CheckScreenshotQuizAnswerQueryResult>> GenerateQuestion(
+    public async Task<ActionResult<CheckScreenshotQuizAnswerQueryResult>> CheckAnswer(
         [FromQuery] string question,
         [FromQuery] string answer,
         CancellationToken cancellationToken)

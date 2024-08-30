@@ -1,9 +1,11 @@
 using GachaMoon.Database.Configurations.Entities.Accounts;
+using GachaMoon.Database.Configurations.Entities.Animes;
 using GachaMoon.Database.Configurations.Entities.Banners;
 using GachaMoon.Database.Configurations.Entities.Characters;
 using GachaMoon.Database.Configurations.Entities.Promocodes;
 using GachaMoon.Database.Configurations.Entities.Users;
 using GachaMoon.Domain.Accounts;
+using GachaMoon.Domain.Animes;
 using GachaMoon.Domain.Banners;
 using GachaMoon.Domain.Characters;
 using GachaMoon.Domain.ExternalServices;
@@ -87,6 +89,10 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
         _ = modelBuilder.ApplyConfiguration(new PromocodeHistoryConfiguration());
 
         _ = modelBuilder.ApplyConfiguration(new AccountConnectedExternalServiceConfiguration());
+
+        _ = modelBuilder.ApplyConfiguration(new AnimeConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new AnimeEpisodeConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new AnimeImageConfiguration());
     }
 
 #nullable disable
@@ -117,6 +123,10 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
     public DbSet<NpcCharacterBaseStats> NpcCharacterBaseStats { get; set; }
 
     public DbSet<AccountConnectedExternalService> AccountExternalServices { get; set; }
+
+    public DbSet<Anime> Animes { get; set; }
+    public DbSet<AnimeEpisode> AnimeEpisodes { get; set; }
+    public DbSet<AnimeImage> AnimeImages { get; set; }
 
 #nullable enable
 }

@@ -82,7 +82,8 @@ builder.Services.AddSystemClockProvider();
 
 builder.Services.AddAnimeClients();
 builder.Services.AddUserAnimeListClients();
-builder.Services.AddSingleton<IAnimeScreenshotQuizService, JsonAnimeScreenshotQuizService>();
+builder.Services.AddSingleton<IUserSavedAnimeListService, UserSavedAnimeListService>();
+builder.Services.AddSingleton<IAnimeScreenshotQuizService, AnimeScreenshotQuizService>();
 
 builder.Services.AddResponseCaching();
 builder.Services.AddOutputCache(options =>

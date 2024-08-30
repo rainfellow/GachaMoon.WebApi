@@ -9,6 +9,7 @@ public class AccountConnectedExternalService : SoftDeleteEntityBase<long>
     public ExternalServiceType ExternalServiceType { get; set; }
     public ExternalServiceProvider ExternalServiceProvider { get; set; }
     public string ExternalServiceUserId { get; set; } = default!;
+    public UserAnimeListData UserAnimeList { get; set; } = default!;
 
     public virtual Account Account { get; set; } = default!;
 }

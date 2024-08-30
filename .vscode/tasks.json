@@ -36,6 +36,18 @@
                 "${workspaceFolder}/src/GachaMoon.WebApi/GachaMoon.WebApi.csproj"
             ],
             "problemMatcher": "$msCompile"
-        }
+        },
+        {
+            "label": "build_robot",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Robots/GachaMoon.Robots.ScreenshotDataParser/GachaMoon.Robots.ScreenshotDataParser.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
     ]
 }

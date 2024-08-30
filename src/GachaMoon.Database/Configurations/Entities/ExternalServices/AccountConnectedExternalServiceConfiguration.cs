@@ -14,6 +14,7 @@ public class AccountConnectedExternalServiceConfiguration : ConfigurationBase<Ac
         _ = builder.Property(x => x.ExternalServiceProvider).IsRequired();
         _ = builder.Property(x => x.ExternalServiceType).IsRequired();
         _ = builder.Property(x => x.ExternalServiceUserId).IsRequired();
+        _ = builder.Property(x => x.UserAnimeList).HasJsonConversion().IsRequired();
 
         _ = builder.HasOne(x => x.Account)
             .WithMany() // Assuming there is a navigation property for Account

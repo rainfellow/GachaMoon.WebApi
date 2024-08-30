@@ -23,7 +23,7 @@ public static class Injection
         services.AddScoped<MALUserAnimeListClient>();
         services.AddScoped<IUserAnimeListClient>(sp => sp.GetRequiredService<MALUserAnimeListClient>());
 
-        services.AddHttpClient(ExternalClientType.AnimeList.ToString())
+        services.AddHttpClient(ExternalClientType.UserAnimeList.ToString())
             .ConfigureHttpClient((sp, c) =>
             {
                 c.BaseAddress = new Uri("https://api.myanimelist.net/");

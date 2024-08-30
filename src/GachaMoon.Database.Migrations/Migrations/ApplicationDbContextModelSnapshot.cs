@@ -266,6 +266,114 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.ToTable("PremiumInventories");
                 });
 
+            modelBuilder.Entity("GachaMoon.Domain.Animes.Anime", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AnimeBaseId")
+                        .HasColumnType("integer");
+
+                    b.Property<Instant>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ImageSiteTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Instant>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnimeBaseId")
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" is NULL");
+
+                    b.ToTable("Animes");
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeEpisode", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AnimeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Instant>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Instant>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnimeId");
+
+                    b.ToTable("AnimeEpisodes");
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeImage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AnimeEpisodeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("BadVoteCount")
+                        .HasColumnType("integer");
+
+                    b.Property<Instant>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("VoteCount")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("VoteSum")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnimeEpisodeId");
+
+                    b.ToTable("AnimeImages");
+                });
+
             modelBuilder.Entity("GachaMoon.Domain.Banners.Banner", b =>
                 {
                     b.Property<long>("Id")
@@ -967,6 +1075,10 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Property<Instant>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("UserAnimeList")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId", "ExternalServiceType")
@@ -1400,6 +1512,28 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeEpisode", b =>
+                {
+                    b.HasOne("GachaMoon.Domain.Animes.Anime", "Anime")
+                        .WithMany("AnimeEpisodes")
+                        .HasForeignKey("AnimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Anime");
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeImage", b =>
+                {
+                    b.HasOne("GachaMoon.Domain.Animes.AnimeEpisode", "AnimeEpisode")
+                        .WithMany("AnimeImages")
+                        .HasForeignKey("AnimeEpisodeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AnimeEpisode");
+                });
+
             modelBuilder.Entity("GachaMoon.Domain.Banners.BannerCharacter", b =>
                 {
                     b.HasOne("GachaMoon.Domain.Banners.Banner", "Banner")
@@ -1540,6 +1674,16 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Animes.Anime", b =>
+                {
+                    b.Navigation("AnimeEpisodes");
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeEpisode", b =>
+                {
+                    b.Navigation("AnimeImages");
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Banners.Banner", b =>
