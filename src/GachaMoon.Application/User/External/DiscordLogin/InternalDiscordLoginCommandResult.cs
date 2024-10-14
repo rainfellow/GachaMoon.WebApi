@@ -1,6 +1,6 @@
 namespace GachaMoon.Application.User.External.DiscordLogin;
 
-public record DiscordLoginCommandResult
+public record InternalDiscordLoginCommandResult
 {
     public long AccountId { get; init; } = default!;
     public long ExternalUserId { get; init; } = default!;

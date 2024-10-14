@@ -49,5 +49,17 @@
             ],
             "problemMatcher": "$msCompile"
         },
+        {
+            "label": "build_alias_scrapper",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Robots/GachaMoon.Robots.AnimeAliasScrapper/GachaMoon.Robots.AnimeAliasScrapper.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
     ]
 }

@@ -1,55 +1,20 @@
-using GachaMoon.Database;
-using GachaMoon.Domain.Accounts;
-using GachaMoon.Domain.Users;
+using GachaMoon.Services.Abstractions.Auth;
+using GachaMoon.Services.Abstractions.Clients.Data;
 
 namespace GachaMoon.Application.User.External.DiscordSignup;
 
-public class DiscordSignUpCommandHandler(ApplicationDbContext dbContext) : IRequestHandler<DiscordSignUpCommand, DiscordSignUpCommandResult>
+public class DiscordSignUpCommandHandler(IDiscordSignupService discordSignupService) : IRequestHandler<DiscordSignUpCommand, DiscordSignUpCommandResult>
 {
-    private readonly ApplicationDbContext _dbContext = dbContext;
+    private readonly IDiscordSignupService _discordSignupService = discordSignupService;
 
     public async Task<DiscordSignUpCommandResult> Handle(DiscordSignUpCommand request, CancellationToken cancellationToken)
     {
-        var newAccount = CreateAccount(request);
-        var newDiscordUser = CreateExternalUser(request, newAccount);
-        var newAccountPremiumInventory = CreatePremiumInventory(newAccount);
-
-        _dbContext.Accounts.Add(newAccount);
-        _dbContext.ExternalUsers.Add(newDiscordUser);
-        _dbContext.PremiumInventories.Add(newAccountPremiumInventory);
-
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _discordSignupService.RegisterDiscordUser(new DiscordUserData
+        {
+            Id = request.DiscordIdentifier,
+            Username = request.AccountName
+        });
 
         return new DiscordSignUpCommandResult();
-    }
-
-    private static Account CreateAccount(DiscordSignUpCommand request)
-    {
-        return new Account
-        {
-            AccountName = request.AccountName,
-            AccountType = AccountType.User
-        };
-    }
-
-    private static ExternalUser CreateExternalUser(DiscordSignUpCommand request, Account connectedAccount)
-    {
-        return new ExternalUser
-        {
-            UserType = ExternalUserType.Discord,
-            Identifier = request.DiscordIdentifier,
-            Account = connectedAccount
-        };
-    }
-
-    private static PremiumInventory CreatePremiumInventory(Account connectedAccount)
-    {
-        return new PremiumInventory
-        {
-            Account = connectedAccount,
-            PremiumCurrencyAmount = 0,
-            WildcardSkillItemCount = 0,
-            StandardBannerRollsAmount = 0
-        };
     }
 }

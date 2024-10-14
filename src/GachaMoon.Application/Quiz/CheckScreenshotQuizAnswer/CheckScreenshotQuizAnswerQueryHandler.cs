@@ -11,6 +11,6 @@ public class CheckScreenshotQuizAnswerQueryHandler(ApplicationDbContext dbContex
     public async Task<CheckScreenshotQuizAnswerQueryResult> Handle(CheckScreenshotQuizAnswerQuery request, CancellationToken cancellationToken)
     {
         var result = await _screenshotQuizService.CheckAnswer(request.Question, request.Answer);
-        return new CheckScreenshotQuizAnswerQueryResult(result.CorrectAnswer, result.Result);
+        return new CheckScreenshotQuizAnswerQueryResult(result.CorrectAnswer, result.PredictedAnswer, result.Result);
     }
 }

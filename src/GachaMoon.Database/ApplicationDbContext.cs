@@ -1,16 +1,21 @@
 using GachaMoon.Database.Configurations.Entities.Accounts;
 using GachaMoon.Database.Configurations.Entities.Animes;
 using GachaMoon.Database.Configurations.Entities.Banners;
+using GachaMoon.Database.Configurations.Entities.BugReports;
 using GachaMoon.Database.Configurations.Entities.Characters;
+using GachaMoon.Database.Configurations.Entities.ExternalServices;
 using GachaMoon.Database.Configurations.Entities.Promocodes;
+using GachaMoon.Database.Configurations.Entities.Quiz;
 using GachaMoon.Database.Configurations.Entities.Users;
 using GachaMoon.Domain.Accounts;
 using GachaMoon.Domain.Animes;
 using GachaMoon.Domain.Banners;
+using GachaMoon.Domain.BugReports;
 using GachaMoon.Domain.Characters;
 using GachaMoon.Domain.ExternalServices;
 using GachaMoon.Domain.Npcs;
 using GachaMoon.Domain.Promocodes;
+using GachaMoon.Domain.Quiz;
 using GachaMoon.Domain.Users;
 using GachaMoon.Services.Abstractions.Time;
 using Microsoft.EntityFrameworkCore;
@@ -93,6 +98,12 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
         _ = modelBuilder.ApplyConfiguration(new AnimeConfiguration());
         _ = modelBuilder.ApplyConfiguration(new AnimeEpisodeConfiguration());
         _ = modelBuilder.ApplyConfiguration(new AnimeImageConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new AnimeAliasConfiguration());
+
+        _ = modelBuilder.ApplyConfiguration(new GameFeedbackConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new GameResultConfuguration());
+
+        _ = modelBuilder.ApplyConfiguration(new AnimeAliasBugReportConfiguration());
     }
 
 #nullable disable
@@ -127,6 +138,13 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
     public DbSet<Anime> Animes { get; set; }
     public DbSet<AnimeEpisode> AnimeEpisodes { get; set; }
     public DbSet<AnimeImage> AnimeImages { get; set; }
+    public DbSet<AnimeAlias> AnimeAliases { get; set; }
+
+    public DbSet<GameResult> GameResults { get; set; }
+    public DbSet<GameFeedback> GameFeedbacks { get; set; }
+
+
+    public DbSet<AnimeAliasBugReport> AnimeAliasBugReports { get; set; }
 
 #nullable enable
 }

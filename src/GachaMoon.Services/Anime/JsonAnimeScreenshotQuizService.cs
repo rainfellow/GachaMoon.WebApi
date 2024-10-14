@@ -1,10 +1,10 @@
 using System.Reflection;
 using System.Text.Json;
-using GachaMoon.Domain.ExternalServices;
 using GachaMoon.Services.Abstractions.Anime;
 using GachaMoon.Services.Abstractions.Anime.Data;
 using GachaMoon.Services.Abstractions.Clients;
 using GachaMoon.Services.Anime.Data;
+using UserAnimeListData = GachaMoon.Services.Abstractions.Anime.Data.UserAnimeListData;
 
 namespace GachaMoon.Services.Anime;
 
@@ -37,6 +37,11 @@ public class JsonAnimeScreenshotQuizService : IAnimeScreenshotQuizService
         var correctAnswer = QuizDictionary[question];
         var possibleAnimes = await _animeListClient.AnimeFromQuery(answer);
         var answerAnime = possibleAnimes.First();
-        return new QuizAnswerData(correctAnswer, correctAnswer.ToLowerInvariant() == answerAnime.Title.ToLowerInvariant() || answerAnime.Synonyms.Any(x => x.ToLowerInvariant() == correctAnswer.ToLowerInvariant()));
+        return new QuizAnswerData(correctAnswer, answerAnime.Title, correctAnswer.ToLowerInvariant() == answerAnime.Title.ToLowerInvariant() || answerAnime.Synonyms.Any(x => x.ToLowerInvariant() == correctAnswer.ToLowerInvariant()));
+    }
+
+    public Task<ICollection<QuizQuestionData>> GenerateQuiz(QuizConfigData config, ICollection<UserAnimeListData>? userLists = null)
+    {
+        throw new NotImplementedException();
     }
 }

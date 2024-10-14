@@ -6,6 +6,7 @@ namespace GachaMoon.Domain.Animes;
 public class AnimeImage : SoftDeleteEntityBase<long>
 {
     public string Url { get; set; } = default!;
+    public string SourceImageUrl { get; set; } = default!;
     public long VoteSum { get; set; } = default!;
     public int VoteCount { get; set; } = default!;
     public int BadVoteCount { get; set; } = default!;

@@ -7,12 +7,12 @@ using GachaMoon.Common.Exceptions.Users;
 
 namespace GachaMoon.Application.User.External.DiscordLogin;
 
-public class DiscordLoginCommandHandler(ApplicationDbContext dbContext, JwtOptions jwtOptions) : IRequestHandler<DiscordLoginCommand, DiscordLoginCommandResult>
+public class InternalDiscordLoginCommandHandler(ApplicationDbContext dbContext, JwtOptions jwtOptions) : IRequestHandler<InternalDiscordLoginCommand, InternalDiscordLoginCommandResult>
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
     private readonly JwtOptions _jwtOptions = jwtOptions;
 
-    public async Task<DiscordLoginCommandResult> Handle(DiscordLoginCommand request, CancellationToken cancellationToken)
+    public async Task<InternalDiscordLoginCommandResult> Handle(InternalDiscordLoginCommand request, CancellationToken cancellationToken)
     {
         var user = await _dbContext.ExternalUsers
             .IsNotDeleted()
@@ -27,7 +27,7 @@ public class DiscordLoginCommandHandler(ApplicationDbContext dbContext, JwtOptio
         var token = JwtUtilities
             .GenerateToken(new JwtTokenData(user.Id, user.AccountId, account.AccountType == Domain.Accounts.AccountType.Admin, false), _jwtOptions);
 
-        return new DiscordLoginCommandResult
+        return new InternalDiscordLoginCommandResult
         {
             Token = token,
             AccountId = account.Id,

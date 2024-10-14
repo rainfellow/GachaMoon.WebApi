@@ -1,3 +1,4 @@
+using GachaMoon.Application.Auth.DiscordLogin;
 using GachaMoon.Application.User.UserInfo;
 using GachaMoon.WebApi.Endpoints.Application.User.Models;
 using MediatR;
@@ -17,6 +18,17 @@ public class UserController(ISender sender) : ApiControllerBase(sender)
         var command = request.ToCommand();
         var result = await Sender.Send(command, cancellationToken);
         return Ok(SignupResponse.FromResult(result));
+    }
+
+    [AllowAnonymous]
+    [HttpPost("auth/discordLogin")]
+    public async Task<ActionResult<DiscordLoginResponse>> DiscordAuth(
+        [FromQuery] string code,
+        CancellationToken cancellationToken)
+    {
+        var command = new DiscordLoginCommand(code);
+        var result = await Sender.Send(command, cancellationToken);
+        return Ok(DiscordLoginResponse.FromDiscordResult(result));
     }
 
     [HttpGet("me")]

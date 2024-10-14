@@ -10,6 +10,7 @@ public class AnimeImageConfiguration : ConfigurationBase<AnimeImage>
     {
         base.ApplyConfiguration(builder);
         _ = builder.Property(x => x.Url).IsRequired();
+        _ = builder.Property(x => x.SourceImageUrl).IsRequired();
         _ = builder.Property(x => x.VoteCount).IsRequired();
         _ = builder.Property(x => x.VoteSum).IsRequired();
         _ = builder.Property(x => x.BadVoteCount).IsRequired();

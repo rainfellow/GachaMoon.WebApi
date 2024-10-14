@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <ItemGroup>
+        <PackageReference Include="DetectLanguage" Version="1.0.0" />
+        <PackageReference Include="Ensersoft.Robots" Version="1.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0" />
+        <PackageReference Include="WanaKanaShaapu" Version="2.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\GachaMoon.Database\GachaMoon.Database.csproj" />
+        <ProjectReference Include="..\..\GachaMoon.Common\GachaMoon.Common.csproj" />
+        <ProjectReference Include="..\..\GachaMoon.Services\GachaMoon.Services.csproj" />
+        <ProjectReference Include="..\..\GachaMoon.Clients\GachaMoon.Clients.csproj" />
+        <ProjectReference Include="..\..\GachaMoon.Services.Abstractions\GachaMoon.Services.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>

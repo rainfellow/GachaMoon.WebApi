@@ -2,7 +2,7 @@ using GachaMoon.Database.Extensions;
 using GachaMoon.Domain.ExternalServices;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GachaMoon.Database.Configurations.Entities.Accounts;
+namespace GachaMoon.Database.Configurations.Entities.ExternalServices;
 
 public class AccountConnectedExternalServiceConfiguration : ConfigurationBase<AccountConnectedExternalService>
 {

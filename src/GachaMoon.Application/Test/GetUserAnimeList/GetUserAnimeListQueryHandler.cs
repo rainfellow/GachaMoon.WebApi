@@ -8,7 +8,7 @@ public class GetUserAnimeListQueryHandler(IUserAnimeListClient animeListClient) 
 
     public async Task<GetUserAnimeListQueryResult> Handle(GetUserAnimeListQuery request, CancellationToken cancellationToken)
     {
-        var result = await _animeListClient.GetUserAnimeList(request.UserName, cancellationToken);
+        var result = await _animeListClient.GetUserAnimeList(request.UserName, null, cancellationToken);
         return new GetUserAnimeListQueryResult(result);
     }
 }

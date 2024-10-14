@@ -2,34 +2,37 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using GachaMoon.Clients.AnimeList.Data;
 using GachaMoon.Clients.Base;
-using GachaMoon.Database;
 using GachaMoon.Services.Abstractions.Clients;
 using GachaMoon.Services.Abstractions.Clients.Data;
 using Microsoft.AspNetCore.Http.Extensions;
 
 namespace GachaMoon.Clients.AnimeList;
 
-public class MALUserAnimeListClient(ApplicationDbContext dbContext,
-    IHttpClientFactory httpClientFactory) : HttpClientExternalBase(httpClientFactory), IUserAnimeListClient
+public class MALUserAnimeListClient(IHttpClientFactory httpClientFactory) : HttpClientExternalBase(httpClientFactory), IUserAnimeListClient
 {
     protected override ExternalClientType ClientType => ExternalClientType.UserAnimeList;
 
     private const string ApiUrl = "v2";
     private static readonly JsonSerializerOptions JsonSerializerOptions = new(JsonSerializerDefaults.Web);
 
-    private readonly ApplicationDbContext _dbContext = dbContext;
 
-    public async Task<ICollection<UserAnimeData>> GetUserAnimeList(string userId, CancellationToken cancellationToken = default)
+    public async Task<ICollection<UserAnimeData>> GetUserAnimeList(string userId, ICollection<string> animeStatuses, CancellationToken cancellationToken = default)
     {
-        var keyValuePairs = new QueryBuilder()
+        var result = new List<UserAnimeData>();
+        foreach (var animeStatus in animeStatuses)
         {
-            { "limit", "1000" }
-        };
-        var uri = new Uri(
-            $"{ApiUrl}/users/{userId}/animelist{keyValuePairs.ToQueryString()}", UriKind.Relative);
-        var response = await HttpClient.GetAsync(uri, cancellationToken);
-        var responseData = await response.Content.ReadFromJsonAsync<MALUserAnimeResponse>(JsonSerializerOptions);
-        return responseData != null ? responseData.Data.Select(x => new UserAnimeData { Title = x.Node.Title, Id = x.Node.Id }).ToList() : [];
+            var keyValuePairs = new QueryBuilder()
+            {
+                { "limit", "1000" },
+                { "status", GetStatusMALName(animeStatus) }
+            };
+            var uri = new Uri(
+                $"{ApiUrl}/users/{userId}/animelist{keyValuePairs.ToQueryString()}", UriKind.Relative);
+            var response = await HttpClient.GetAsync(uri, cancellationToken);
+            var responseData = await response.Content.ReadFromJsonAsync<MALUserAnimeResponse>(JsonSerializerOptions);
+            result.AddRange(responseData != null ? responseData.Data.Select(x => new UserAnimeData { Title = x.Node.Title, Id = x.Node.Id }) : []);
+        }
+        return result;
     }
 
     public async Task<UserAnimeData> GetAnime(string query, CancellationToken cancellationToken = default)
@@ -57,16 +60,39 @@ public class MALUserAnimeListClient(ApplicationDbContext dbContext,
         return response;
     }
 
-    public async Task<UserAnimeData> GetAnimeDetails(int id, CancellationToken cancellationToken = default)
+    public async Task<AnimeDetailedData> GetAnimeDetails(int id, CancellationToken cancellationToken = default)
     {
         var keyValuePairs = new QueryBuilder()
         {
-            { "fields", "id,title" }
+            { "fields", "id,title,alternative_titles,start_date,mean,media_type,num_episodes,rating" }
         };
         var uri = new Uri(
             $"{ApiUrl}/anime/{id}{keyValuePairs.ToQueryString()}", UriKind.Relative);
         var response = await HttpClient.GetAsync(uri, cancellationToken);
         var responseData = await response.Content.ReadFromJsonAsync<MALAnimeNode>(JsonSerializerOptions);
-        return responseData != null ? new UserAnimeData { Title = responseData.Title, Id = responseData.Id } : throw new NotImplementedException("");
+        return responseData != null ? new AnimeDetailedData
+        {
+            Title = responseData.Title,
+            MalId = responseData.Id,
+            AnimeType = responseData.MediaType,
+            StartDate = responseData.StartDate,
+            MeanScore = responseData.Mean,
+            EpisodeCount = responseData.NumEpisodes,
+            AgeRating = responseData.Rating,
+        }
+        : throw new NotImplementedException("");
+    }
+
+    private static string GetStatusMALName(string status)
+    {
+        return status switch
+        {
+            "watching" => "watching",
+            "completed" => "completed",
+            "paused" => "on_hold",
+            "dropped" => "dropped",
+            "planned" => "plan_to_watch",
+            _ => "Unknown",
+        };
     }
 }

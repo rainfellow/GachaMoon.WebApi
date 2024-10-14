@@ -2,5 +2,5 @@ namespace GachaMoon.Clients.Base;
 
 public enum ExternalClientType
 {
-    None, AnimeList, UserAnimeList
+    None, AnimeList, UserAnimeList, AnimeQuizApi, DiscordApi
 }

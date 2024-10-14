@@ -18,7 +18,7 @@ services:
 
   api:
     container_name: gachamoon-api
-    image: 192.168.31.95:32768/gachamoon-webapi/gachamoon-webapi:latest # 185.241.195.3:5000/gachamoon-webapi/gachamoon-webapi:latest
+    image: 192.168.31.59:5000/gachamoon-webapi/gachamoon-webapi:latest # 185.241.195.3:5000/gachamoon-webapi/gachamoon-webapi:latest
     restart: always
     environment:
       ASPNETCORE_ENVIRONMENT: Production

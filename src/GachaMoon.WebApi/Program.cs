@@ -26,6 +26,10 @@ using GachaMoon.Services.Abstractions.Anime;
 using GachaMoon.Services.Anime;
 using GachaMoon.Clients.Anime;
 using GachaMoon.Clients.AnimeList;
+using GachaMoon.Clients.AnimeQuiz;
+using GachaMoon.Clients.DiscordApi;
+using GachaMoon.Services.Abstractions.Auth;
+using GachaMoon.Services.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.ApplyHostedAppConfiguration(args);
@@ -36,7 +40,7 @@ builder.Services.AddCors(options =>
         builder =>
         {
             _ = builder
-                .SetIsOriginAllowed(origin => new Uri(origin).IsLoopback || origin.Contains("http://web.gachamoon.ru", StringComparison.InvariantCultureIgnoreCase))
+                .SetIsOriginAllowed(origin => new Uri(origin).IsLoopback || origin.Contains("http://gachamoon.xyz") || origin.Contains("https://gachamoon.xyz", StringComparison.InvariantCultureIgnoreCase))
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials();
@@ -82,8 +86,11 @@ builder.Services.AddSystemClockProvider();
 
 builder.Services.AddAnimeClients();
 builder.Services.AddUserAnimeListClients();
+builder.Services.AddAnimeQuizClients();
+builder.Services.AddDiscordClients();
 builder.Services.AddSingleton<IUserSavedAnimeListService, UserSavedAnimeListService>();
 builder.Services.AddSingleton<IAnimeScreenshotQuizService, AnimeScreenshotQuizService>();
+builder.Services.AddScoped<IDiscordSignupService, DiscordSignupService>();
 
 builder.Services.AddResponseCaching();
 builder.Services.AddOutputCache(options =>

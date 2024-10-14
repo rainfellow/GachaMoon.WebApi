@@ -1,5 +1,6 @@
 // src/GachaMoon.Database/Configurations/Entities/Banners/BannerConfiguration.cs
 using GachaMoon.Domain.Animes;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GachaMoon.Database.Configurations.Entities.Animes;
@@ -11,6 +12,7 @@ public class AnimeEpisodeConfiguration : ConfigurationBase<AnimeEpisode>
         base.ApplyConfiguration(builder);
         _ = builder.Property(x => x.Title).IsRequired();
         _ = builder.Property(x => x.AnimeId).IsRequired();
+        _ = builder.Property(x => x.EpisodeNumber).IsRequired().HasDefaultValue(0);
 
         _ = builder.HasOne(x => x.Anime)
             .WithMany(x => x.AnimeEpisodes)

@@ -360,3 +360,5 @@ MigrationBackup/
 **/appsettings.Production.json
 deploy.sh
 *.sh
+/.deploy/remote
+registry-pass.txt

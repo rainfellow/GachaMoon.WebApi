@@ -5,6 +5,8 @@
     <ProjectReference Include="..\GachaMoon.Common\GachaMoon.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="GraphQL.Client" Version="6.1.0" />
+    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.1.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.8" />
     <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />

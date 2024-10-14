@@ -8,9 +8,9 @@ namespace GachaMoon.WebApi.Endpoints.Internal.Discord;
 public class DiscordController(ISender sender) : InternalApiControllerBase(sender)
 {
     [HttpGet("auth/token")]
-    public async Task<ActionResult<DiscordLoginCommandResult>> GetUserToken([FromQuery] string discordIdentifier, CancellationToken cancellationToken)
+    public async Task<ActionResult<InternalDiscordLoginCommandResult>> GetUserToken([FromQuery] string discordIdentifier, CancellationToken cancellationToken)
     {
-        var query = new DiscordLoginCommand(discordIdentifier);
+        var query = new InternalDiscordLoginCommand(discordIdentifier);
         var result = await Sender.Send(query, cancellationToken);
         return Ok(result);
     }

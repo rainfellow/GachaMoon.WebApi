@@ -50,7 +50,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Accounts.AccountBannerHistory", b =>
@@ -86,7 +86,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasIndex("BannerId");
 
-                    b.ToTable("AccountBannerHistory");
+                    b.ToTable("AccountBannerHistory", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Accounts.AccountBannerStats", b =>
@@ -133,7 +133,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("AccountBannerStats");
+                    b.ToTable("AccountBannerStats", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Accounts.AccountCharacter", b =>
@@ -186,7 +186,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("AccountCharacters");
+                    b.ToTable("AccountCharacters", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Accounts.AccountCharacterAbility", b =>
@@ -225,7 +225,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("AccountCharacterAbilities");
+                    b.ToTable("AccountCharacterAbilities", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Accounts.PremiumInventory", b =>
@@ -263,7 +263,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("PremiumInventories");
+                    b.ToTable("PremiumInventories", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Animes.Anime", b =>
@@ -274,8 +274,27 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("AgeRating")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)")
+                        .HasDefaultValue("ERR");
+
+                    b.Property<int>("AnilistId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
+
                     b.Property<int>("AnimeBaseId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("AnimeType")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasDefaultValue("ERR");
 
                     b.Property<Instant>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -283,9 +302,26 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Property<Instant?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("EpisodeCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
+
                     b.Property<string>("ImageSiteTitle")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<double>("MeanScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("double precision")
+                        .HasDefaultValue(0.0);
+
+                    b.Property<string>("StartDate")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)")
+                        .HasDefaultValue("ERR");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -300,7 +336,49 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("Animes");
+                    b.ToTable("Animes", (string)null);
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeAlias", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Alias")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("AnimeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Instant>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)")
+                        .HasDefaultValue("ERR");
+
+                    b.Property<Instant>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Alias")
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" is NULL");
+
+                    b.HasIndex("AnimeId");
+
+                    b.ToTable("AnimeAliases", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeEpisode", b =>
@@ -320,6 +398,11 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Property<Instant?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("EpisodeNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -331,7 +414,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasIndex("AnimeId");
 
-                    b.ToTable("AnimeEpisodes");
+                    b.ToTable("AnimeEpisodes", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeImage", b =>
@@ -354,6 +437,10 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Property<Instant?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("SourceImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<Instant>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -371,7 +458,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasIndex("AnimeEpisodeId");
 
-                    b.ToTable("AnimeImages");
+                    b.ToTable("AnimeImages", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Banners.Banner", b =>
@@ -403,7 +490,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Banners");
+                    b.ToTable("Banners", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Banners.BannerCharacter", b =>
@@ -435,7 +522,49 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasIndex("CharacterId");
 
-                    b.ToTable("BannerCharacters");
+                    b.ToTable("BannerCharacters", (string)null);
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.BugReports.AnimeAliasBugReport", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("AliasBugReportType")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("AliasId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Instant>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("SuggestedAlias")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("SuggestedLanguage")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Instant>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("AnimeAliasBugReports", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Characters.Character", b =>
@@ -468,7 +597,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Characters");
+                    b.ToTable("Characters", (string)null);
 
                     b.HasData(
                         new
@@ -574,7 +703,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CharacterAbilities");
+                    b.ToTable("CharacterAbilities", (string)null);
 
                     b.HasData(
                         new
@@ -672,7 +801,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("CharacterBaseStats");
+                    b.ToTable("CharacterBaseStats", (string)null);
 
                     b.HasData(
                         new
@@ -788,7 +917,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("DefaultCharacterAbilities");
+                    b.ToTable("DefaultCharacterAbilities", (string)null);
 
                     b.HasData(
                         new
@@ -1085,7 +1214,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("AccountExternalServices");
+                    b.ToTable("AccountExternalServices", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Npcs.NpcCharacter", b =>
@@ -1117,7 +1246,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NpcCharacters");
+                    b.ToTable("NpcCharacters", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Npcs.NpcCharacterAbility", b =>
@@ -1149,7 +1278,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasIndex("NpcCharacterId");
 
-                    b.ToTable("NpcCharacterAbilities");
+                    b.ToTable("NpcCharacterAbilities", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Npcs.NpcCharacterBaseStats", b =>
@@ -1185,7 +1314,7 @@ namespace GachaMoon.Database.Migrations.Migrations
 
                     b.HasIndex("NpcCharacterId");
 
-                    b.ToTable("NpcCharacterBaseStats");
+                    b.ToTable("NpcCharacterBaseStats", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Promocodes.Promocode", b =>
@@ -1221,7 +1350,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("Promocodes");
+                    b.ToTable("Promocodes", (string)null);
 
                     b.HasData(
                         new
@@ -1285,7 +1414,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("PromocodeEffects");
+                    b.ToTable("PromocodeEffects", (string)null);
 
                     b.HasData(
                         new
@@ -1348,7 +1477,82 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("PromocodeHistory");
+                    b.ToTable("PromocodeHistory", (string)null);
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Quiz.GameFeedback", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Instant>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Feedback")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("GameResultId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Instant>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameResultId");
+
+                    b.HasIndex("AccountId", "GameResultId")
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" is NULL");
+
+                    b.ToTable("GameFeedbacks", (string)null);
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.Quiz.GameResult", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<Instant>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Instant?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("GameRecap")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("GameType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Instant>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Title")
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" is NULL");
+
+                    b.ToTable("GameResults", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Users.ExternalUser", b =>
@@ -1391,7 +1595,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("ExternalUsers");
+                    b.ToTable("ExternalUsers", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Users.InternalUser", b =>
@@ -1430,7 +1634,7 @@ namespace GachaMoon.Database.Migrations.Migrations
                         .IsUnique()
                         .HasFilter("\"DeletedAt\" is NULL");
 
-                    b.ToTable("InternalUsers");
+                    b.ToTable("InternalUsers", (string)null);
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Accounts.AccountBannerHistory", b =>
@@ -1512,6 +1716,17 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeAlias", b =>
+                {
+                    b.HasOne("GachaMoon.Domain.Animes.Anime", "Anime")
+                        .WithMany("AnimeAliases")
+                        .HasForeignKey("AnimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Anime");
+                });
+
             modelBuilder.Entity("GachaMoon.Domain.Animes.AnimeEpisode", b =>
                 {
                     b.HasOne("GachaMoon.Domain.Animes.Anime", "Anime")
@@ -1551,6 +1766,17 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Navigation("Banner");
 
                     b.Navigation("Character");
+                });
+
+            modelBuilder.Entity("GachaMoon.Domain.BugReports.AnimeAliasBugReport", b =>
+                {
+                    b.HasOne("GachaMoon.Domain.Accounts.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("GachaMoon.Domain.Characters.CharacterBaseStats", b =>
@@ -1654,6 +1880,25 @@ namespace GachaMoon.Database.Migrations.Migrations
                     b.Navigation("Promocode");
                 });
 
+            modelBuilder.Entity("GachaMoon.Domain.Quiz.GameFeedback", b =>
+                {
+                    b.HasOne("GachaMoon.Domain.Accounts.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GachaMoon.Domain.Quiz.GameResult", "GameResult")
+                        .WithMany()
+                        .HasForeignKey("GameResultId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("GameResult");
+                });
+
             modelBuilder.Entity("GachaMoon.Domain.Users.ExternalUser", b =>
                 {
                     b.HasOne("GachaMoon.Domain.Accounts.Account", "Account")
@@ -1678,6 +1923,8 @@ namespace GachaMoon.Database.Migrations.Migrations
 
             modelBuilder.Entity("GachaMoon.Domain.Animes.Anime", b =>
                 {
+                    b.Navigation("AnimeAliases");
+
                     b.Navigation("AnimeEpisodes");
                 });
 

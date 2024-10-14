@@ -31,7 +31,7 @@
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes
             // For further information visit https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
-            "name": "Robot",
+            "name": "Parser Robot",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build_robot",
@@ -42,6 +42,22 @@
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
-        }
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
+            "name": "Alias ScrapperRobot",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_alias_scrapper",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/Robots/GachaMoon.Robots.AnimeAliasScrapper/bin/Debug/net8.0/GachaMoon.Robots.AnimeAliasScrapper.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Robots/GachaMoon.Robots.AnimeAliasScrapper",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
     ]
 }
