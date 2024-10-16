@@ -77,7 +77,7 @@ public class AnimeAliasScrapperRobot(
 
                 Thread.Sleep(200);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 errorCount++;
                 if (errorCount > 100)

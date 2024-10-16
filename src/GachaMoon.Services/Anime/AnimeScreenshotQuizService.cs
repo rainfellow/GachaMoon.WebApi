@@ -146,7 +146,7 @@ public class AnimeScreenshotQuizService : IAnimeScreenshotQuizService
 
         return new UserAnimeListData
         {
-            UserAnimes = userLists.SelectMany(x => x.UserAnimes).ToList()
+            UserAnimes = userLists.SelectMany(x => x.UserAnimes).DistinctBy(x => x.Id).ToList()
         };
     }
 
