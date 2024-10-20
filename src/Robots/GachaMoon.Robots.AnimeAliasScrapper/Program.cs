@@ -2,6 +2,7 @@ using Ensersoft.Robots;
 using GachaMoon.Database;
 using GachaMoon.Services.Time;
 using GachaMoon.Clients.Anime;
+using GachaMoon.Clients.Shikimori;
 
 namespace GachaMoon.Robots.AnimeAliasScrapper;
 
@@ -21,6 +22,7 @@ public class Program : CronJobBase
         services.AddSystemClockProvider();
 
         services.AddAnimeClients();
+        services.AddShikimoriClients();
 
         services.AddSingleton<IRobot, AnimeAliasScrapperRobot>();
     }

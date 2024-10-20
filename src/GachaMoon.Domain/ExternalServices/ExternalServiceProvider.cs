@@ -4,5 +4,6 @@ public enum ExternalServiceProvider
 {
     None,
     Shikimori,
-    MyAnimeList
+    MyAnimeList,
+    Anilist
 }

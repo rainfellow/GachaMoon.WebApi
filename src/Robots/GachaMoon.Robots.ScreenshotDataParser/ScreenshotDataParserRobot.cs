@@ -12,13 +12,13 @@ using GachaMoon.Services.Abstractions.Clients.Data;
 namespace GachaMoon.Robots.ScreenshotDataParser;
 
 public class ScreenshotDataParserRobot(
-    IUserAnimeListClient userAnimeListClient,
+    IMyAnimeListApiClient userAnimeListClient,
     IAnimeClient animeClient,
     IClockProvider clockProvider,
     ApplicationDbContext dbContext,
     ILogger<ScreenshotDataParserRobot> logger) : IRobot
 {
-    private readonly IUserAnimeListClient _userAnimeListClient = userAnimeListClient;
+    private readonly IMyAnimeListApiClient _userAnimeListClient = userAnimeListClient;
     private readonly IAnimeClient _animeClient = animeClient;
     private readonly IClockProvider _clockProvider = clockProvider;
     private readonly ApplicationDbContext _dbContext = dbContext;
@@ -52,27 +52,38 @@ public class ScreenshotDataParserRobot(
             var animeIdString = ix != -1 ? malString[(ix + toBeSearched.Length)..] : throw new NotImplementedException();
             var animeId = int.Parse(animeIdString);
             var malAnime = await _userAnimeListClient.GetAnimeDetails(animeId);
-            var checkExisting = await _dbContext.Animes.AnyAsync(x => x.AnimeBaseId == malAnime.MalId);
-            if (checkExisting)
+            var existingAnime = await _dbContext.Animes.FirstOrDefaultAsync(x => x.AnimeBaseId == malAnime.MalId);
+            if (existingAnime == null)
+            {
+                var anime = new Anime
+                {
+                    AnimeBaseId = malAnime.MalId,
+                    Title = malAnime.Title,
+                    ImageSiteTitle = animeData.Name,
+                    AgeRating = malAnime.AgeRating,
+                    AnimeType = malAnime.AnimeType,
+                    EpisodeCount = malAnime.EpisodeCount,
+                    MeanScore = malAnime.MeanScore,
+                    StartDate = malAnime.StartDate,
+                    HasImages = true,
+                    HasSongs = false,
+                    AnilistId = 0,
+                    AnimeEpisodes = CreateAnimeEpisodes(animeData.Episodes)
+                };
+                await _dbContext.AddAsync(anime);
+                await _dbContext.SaveChangesAsync();
+            }
+            else if (existingAnime.HasImages)
             {
                 outputFile.WriteLine($"Anime already exists: {animeData.Name}, mal id {malAnime.MalId} mal name {malAnime.Title}");
                 continue;
             }
-            var anime = new Anime
+            else
             {
-                AnimeBaseId = malAnime.MalId,
-                Title = malAnime.Title,
-                ImageSiteTitle = animeData.Name,
-                AgeRating = malAnime.AgeRating,
-                AnimeType = malAnime.AnimeType,
-                EpisodeCount = malAnime.EpisodeCount,
-                MeanScore = malAnime.MeanScore,
-                StartDate = malAnime.StartDate,
-                AnilistId = 0,
-                AnimeEpisodes = CreateAnimeEpisodes(animeData.Episodes)
-            };
-            await _dbContext.AddAsync(anime);
-            await _dbContext.SaveChangesAsync();
+                existingAnime.HasImages = true;
+                existingAnime.AnimeEpisodes = CreateAnimeEpisodes(animeData.Episodes);
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 

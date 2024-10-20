@@ -61,5 +61,17 @@
             ],
             "problemMatcher": "$msCompile"
         },
+        {
+            "label": "build_amq_scrapper",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Robots/GachaMoon.Robots.SongsDataParser/GachaMoon.Robots.SongsDataParser.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
     ]
 }

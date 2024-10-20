@@ -1,14 +1,14 @@
 using System.Net.Http.Json;
 using System.Text.Json;
-using GachaMoon.Clients.AnimeList.Data;
+using GachaMoon.Clients.MyAnimeList.Data;
 using GachaMoon.Clients.Base;
 using GachaMoon.Services.Abstractions.Clients;
 using GachaMoon.Services.Abstractions.Clients.Data;
 using Microsoft.AspNetCore.Http.Extensions;
 
-namespace GachaMoon.Clients.AnimeList;
+namespace GachaMoon.Clients.MyAnimeList;
 
-public class MALUserAnimeListClient(IHttpClientFactory httpClientFactory) : HttpClientExternalBase(httpClientFactory), IUserAnimeListClient
+public class MALAnimeListClient(IHttpClientFactory httpClientFactory) : HttpClientExternalBase(httpClientFactory), IMyAnimeListApiClient
 {
     protected override ExternalClientType ClientType => ExternalClientType.UserAnimeList;
 

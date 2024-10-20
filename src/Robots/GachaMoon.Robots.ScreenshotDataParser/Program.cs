@@ -1,5 +1,5 @@
 using Ensersoft.Robots;
-using GachaMoon.Clients.AnimeList;
+using GachaMoon.Clients.MyAnimeList;
 using GachaMoon.Database;
 using GachaMoon.Services.Abstractions.Anime;
 using GachaMoon.Services.Time;

@@ -2,9 +2,9 @@ using GachaMoon.Services.Abstractions.Clients;
 
 namespace GachaMoon.Application.Test.TestUserAnimeListApi;
 
-public class TestUserAnimeListApiQueryHandler(IUserAnimeListClient animeListClient) : IRequestHandler<TestUserAnimeListApiQuery, TestUserAnimeListApiQueryResult>
+public class TestUserAnimeListApiQueryHandler(IMyAnimeListApiClient animeListClient) : IRequestHandler<TestUserAnimeListApiQuery, TestUserAnimeListApiQueryResult>
 {
-    private readonly IUserAnimeListClient _animeListClient = animeListClient;
+    private readonly IMyAnimeListApiClient _animeListClient = animeListClient;
 
     public async Task<TestUserAnimeListApiQueryResult> Handle(TestUserAnimeListApiQuery request, CancellationToken cancellationToken)
     {

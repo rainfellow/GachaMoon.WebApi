@@ -1,4 +1,4 @@
-namespace GachaMoon.Clients.AnimeList.Data;
+namespace GachaMoon.Clients.MyAnimeList.Data;
 public record MALAnimeStatus
 {
     public string Status { get; set; } = default!;

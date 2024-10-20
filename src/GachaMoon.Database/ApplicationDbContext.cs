@@ -1,3 +1,4 @@
+using System.Linq;
 using GachaMoon.Database.Configurations.Entities.Accounts;
 using GachaMoon.Database.Configurations.Entities.Animes;
 using GachaMoon.Database.Configurations.Entities.Banners;
@@ -10,6 +11,7 @@ using GachaMoon.Database.Configurations.Entities.Users;
 using GachaMoon.Domain.Accounts;
 using GachaMoon.Domain.Animes;
 using GachaMoon.Domain.Banners;
+using GachaMoon.Domain.Base;
 using GachaMoon.Domain.BugReports;
 using GachaMoon.Domain.Characters;
 using GachaMoon.Domain.ExternalServices;
@@ -44,6 +46,7 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
         return await base.SaveChangesAsync(cancellationToken);
     }
 
+
     private void UpdateUpdatedAtProperty()
     {
         var changedEntities = ChangeTracker.Entries()
@@ -53,18 +56,26 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
 
         foreach (var entity in changedEntities)
         {
-            var updatedAtProperty = entity.Property("UpdatedAt");
-            if (updatedAtProperty != null)
+            try
             {
-                updatedAtProperty.CurrentValue = entity.State switch
+
+                var updatedAtProperty = entity.Property("UpdatedAt");
+                if (updatedAtProperty != null)
                 {
-                    EntityState.Added => entity.Property("CreatedAt")?.CurrentValue ?? timestamp,
-                    EntityState.Detached
-                    or EntityState.Unchanged
-                    or EntityState.Deleted
-                    or EntityState.Modified => timestamp,
-                    _ => throw new NotImplementedException(),
-                };
+                    updatedAtProperty.CurrentValue = entity.State switch
+                    {
+                        EntityState.Added => entity.Property("CreatedAt")?.CurrentValue ?? timestamp,
+                        EntityState.Detached
+                        or EntityState.Unchanged
+                        or EntityState.Deleted
+                        or EntityState.Modified => timestamp,
+                        _ => throw new NotImplementedException(),
+                    };
+                }
+            }
+            catch (Exception)
+            {
+                continue;
             }
         }
     }
@@ -104,6 +115,9 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
         _ = modelBuilder.ApplyConfiguration(new GameResultConfuguration());
 
         _ = modelBuilder.ApplyConfiguration(new AnimeAliasBugReportConfiguration());
+
+        _ = modelBuilder.ApplyConfiguration(new AnimeSongConfiguration());
+        _ = modelBuilder.ApplyConfiguration(new AnimeSongArtistConfiguration());
     }
 
 #nullable disable
@@ -145,6 +159,9 @@ public class ApplicationDbContext(DbContextOptions options, IClockProvider clock
 
 
     public DbSet<AnimeAliasBugReport> AnimeAliasBugReports { get; set; }
+
+    public DbSet<AnimeSong> AnimeSong { get; set; }
+    public DbSet<AnimeSongArtist> AnimeSongArtist { get; set; }
 
 #nullable enable
 }

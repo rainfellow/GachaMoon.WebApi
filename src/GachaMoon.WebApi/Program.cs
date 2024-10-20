@@ -25,11 +25,13 @@ using NodaTime;
 using GachaMoon.Services.Abstractions.Anime;
 using GachaMoon.Services.Anime;
 using GachaMoon.Clients.Anime;
-using GachaMoon.Clients.AnimeList;
+using GachaMoon.Clients.MyAnimeList;
 using GachaMoon.Clients.AnimeQuiz;
 using GachaMoon.Clients.DiscordApi;
 using GachaMoon.Services.Abstractions.Auth;
 using GachaMoon.Services.Auth;
+using GachaMoon.Clients.Anilist;
+using GachaMoon.Clients.Shikimori;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.ApplyHostedAppConfiguration(args);
@@ -84,6 +86,8 @@ builder.Services.AddAndValidateOptions<ApiKeyOptions>(builder.Configuration, "Ap
 
 builder.Services.AddSystemClockProvider();
 
+builder.Services.AddAnilistClients();
+builder.Services.AddShikimoriClients();
 builder.Services.AddAnimeClients();
 builder.Services.AddUserAnimeListClients();
 builder.Services.AddAnimeQuizClients();

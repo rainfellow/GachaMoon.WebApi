@@ -1,4 +1,4 @@
-using GachaMoon.Application.ExternalServices.ConnectExternalService;
+using GachaMoon.Application.ExternalServices.ConnectAnimeList;
 using GachaMoon.Domain.ExternalServices;
 
 namespace GachaMoon.WebApi.Endpoints.Application.Account.Models;
@@ -10,8 +10,8 @@ public record ConnectServiceRequest
     public string ExternalServiceUserId { get; set; } = default!;
     public ICollection<string> AllowedListGroups { get; set; } = default!;
 
-    public ConnectExternalServiceCommand ToCommand(long accountId)
+    public ConnectAnimeListCommand ToCommand(long accountId)
     {
-        return new ConnectExternalServiceCommand(accountId, ServiceType, ServiceProvider, ExternalServiceUserId, AllowedListGroups);
+        return new ConnectAnimeListCommand(accountId, ServiceType, ServiceProvider, ExternalServiceUserId, AllowedListGroups);
     }
 }

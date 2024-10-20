@@ -1,7 +1,7 @@
 using GachaMoon.Application.Accounts.AccountBannerInfo;
 using GachaMoon.Application.Accounts.AccountInfo;
 using GachaMoon.Application.Accounts.ListAccountCharacters;
-using GachaMoon.Application.ExternalServices.ConnectExternalService;
+using GachaMoon.Application.ExternalServices.ConnectAnimeList;
 using GachaMoon.Application.ExternalServices.Anime.GetAnimeList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -58,7 +58,7 @@ public class AccountController(ISender sender) : ApiControllerBase(sender)
     }
 
     [HttpPost("connectservice")]
-    public async Task<ActionResult<ConnectExternalServiceCommandResult>> ConnectExternalService(
+    public async Task<ActionResult<ConnectAnimeListCommandResult>> ConnectExternalService(
         [FromBody] ConnectServiceRequest request,
         CancellationToken cancellationToken)
     {

@@ -19,7 +19,17 @@ public class GetQuizQuestionsQueryHandler(IAnimeScreenshotQuizService animeScree
             MinRating = request.MinRating,
             MaxRating = request.MaxRating,
             MinReleaseYear = request.MinReleaseYear,
-            MaxReleaseYear = request.MaxReleaseYear
+            MaxReleaseYear = request.MaxReleaseYear,
+            ImageQuestions = request.ImageQuestions,
+            SongQuestions = request.SongQuestions,
+            AllowOps = request.AllowOps,
+            AllowEds = request.AllowEds,
+            AllowIns = request.AllowIns,
+            AllowTv = request.AllowTv,
+            AllowMovie = request.AllowMovie,
+            AllowOva = request.AllowOva,
+            AllowSpecial = request.AllowSpecial,
+            AllowMusic = request.AllowMusic
         }, animeLists);
 
         return new()

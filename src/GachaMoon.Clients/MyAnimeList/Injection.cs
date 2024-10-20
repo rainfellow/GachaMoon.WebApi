@@ -8,7 +8,7 @@ using Polly;
 using Polly.Extensions.Http;
 using Polly.Timeout;
 
-namespace GachaMoon.Clients.AnimeList;
+namespace GachaMoon.Clients.MyAnimeList;
 
 public static class Injection
 {
@@ -20,8 +20,8 @@ public static class Injection
 
     public static IServiceCollection AddUserAnimeListClients(this IServiceCollection services)
     {
-        services.AddScoped<MALUserAnimeListClient>();
-        services.AddScoped<IUserAnimeListClient>(sp => sp.GetRequiredService<MALUserAnimeListClient>());
+        services.AddScoped<MALAnimeListClient>();
+        services.AddScoped<IMyAnimeListApiClient>(sp => sp.GetRequiredService<MALAnimeListClient>());
 
         services.AddHttpClient(ExternalClientType.UserAnimeList.ToString())
             .ConfigureHttpClient((sp, c) =>

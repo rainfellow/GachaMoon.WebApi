@@ -13,6 +13,7 @@ namespace GachaMoon.Robots.AnimeAliasScrapper;
 
 public class AnimeAliasScrapperRobot(
     IAnimeClient animeClient,
+    IShikimoriClient shikimoriClient,
     IClockProvider clockProvider,
     ApplicationDbContext dbContext,
     ILogger<AnimeAliasScrapperRobot> logger) : IRobot
@@ -22,6 +23,7 @@ public class AnimeAliasScrapperRobot(
     private static readonly Regex ThaiRegex = new(@"\p{IsThai}");
     private static readonly Regex LatinLettersRegex = new(@"[\p{IsBasicLatin}-[\s]]");
     private readonly IAnimeClient _animeClient = animeClient;
+    private readonly IShikimoriClient _shikimoriClient = shikimoriClient;
     private readonly IClockProvider _clockProvider = clockProvider;
     private readonly ApplicationDbContext _dbContext = dbContext;
     private readonly ILogger<AnimeAliasScrapperRobot> _logger = logger;
@@ -38,8 +40,122 @@ public class AnimeAliasScrapperRobot(
         "トニカクカワイイ", "転生したらスライムだった件"};
     public async Task RunJob()
     {
-        await ProcessDbAnimes();
+        await FixEnRuAliases();
+        //await ProcessDbAnimes();
         //await UpdateAnimeEpisodes();
+    }
+
+    private async Task FixEnRuAliases()
+    {
+
+        var skippedAnimes = new List<long>();
+        var animesToUpdate = await _dbContext.Animes
+            .Where(x => x.UpdatedAt.ToDateTimeUtc() < _clockProvider.Now.ToDateTimeUtc().AddDays(-1))
+            .ToListAsync();
+        _logger.LogInformation("Updating {Count} animes", animesToUpdate.Count);
+        foreach (var anime in animesToUpdate)
+        {
+            var aliases = await _dbContext.AnimeAliases.Where(x => x.AnimeId == anime.Id).ToListAsync();
+            var now = _clockProvider.Now;
+            var animeDetails = await _shikimoriClient.GetAnimeDetails(anime.AnimeBaseId);
+            if (anime.Id == 2011)
+            {
+                animeDetails.Russian = "Танец Карура OVA";
+            }
+            if (anime.Id == 3418)
+            {
+                animeDetails.Russian = "Фея цветов Мэри Белл: Ключ Феникса";
+            }
+            if (anime.Id == 2181)
+            {
+                animeDetails.Russian = "Крошка Мемоль: Шкатулка Мариэль";
+            }
+            if (anime.Id == 2235)
+            {
+                animeDetails.Russian = "Королева тысячелетия: Фильм";
+            }
+            if (anime.Id == 2260)
+            {
+                animeDetails.Russian = "Храбрая команда Дагвон: Мальчик с хрустальными глазами";
+            }
+            if (anime.Id == 2277)
+            {
+                animeDetails.Russian = "Стальной Ангел Куруми 0";
+            }
+            if (anime.Id == 1548)
+            {
+                animeDetails.Russian = "Вавилон Второй (2001)";
+            }
+            if (anime.Id == 2961)
+            {
+                animeDetails.Russian = "Король-колдун Гранзорт OVA";
+            }
+            if (anime.Id == 2487)
+            {
+                animeDetails.Russian = "Хармагеддон (2002)";
+            }
+            if (anime.Id == 2526)
+            {
+                animeDetails.Russian = "Уличный боец II: Фильм";
+            }
+            if (anime.Id == 2539)
+            {
+                animeDetails.English = "Sorcerer Hunters OVA";
+            }
+            if (anime.Id == 2545)
+            {
+                animeDetails.English = "Mobile Suit Gundam Wing: Endless Waltz Movie";
+            }
+            if (animeDetails is null || animeDetails.Russian is null || animeDetails.Russian == "")
+            {
+                skippedAnimes.Add(anime.Id);
+                await Task.Delay(600);
+                continue;
+            }
+            foreach (var alias in aliases)
+            {
+                if (alias.Language is "ru")
+                {
+                    alias.DeletedAt = now;
+                }
+                if (alias.Alias == anime.Title)
+                {
+                    alias.DeletedAt = now;
+                }
+                if (alias.Alias == animeDetails.English || alias.Alias == animeDetails.Russian)
+                {
+                    alias.DeletedAt = now;
+                }
+            }
+            await _dbContext.SaveChangesAsync();
+            _logger.LogInformation("Updated aliases for {Anime} id {Id} mal {MalId}", anime.Title, anime.Id, anime.AnimeBaseId);
+            if (animeDetails.English != null && animeDetails.English != anime.Title && animeDetails.English != "")
+            {
+                await _dbContext.AnimeAliases.AddAsync(new AnimeAlias
+                {
+                    Alias = animeDetails.English,
+                    Language = "en",
+                    AnimeId = anime.Id,
+                    CreatedAt = now,
+                    UpdatedAt = now
+                });
+            }
+            if (animeDetails.English != animeDetails.Russian && anime.Title != animeDetails.Russian)
+            {
+                await _dbContext.AnimeAliases.AddAsync(new AnimeAlias
+                {
+                    Alias = animeDetails.Russian,
+                    Language = "ru",
+                    AnimeId = anime.Id,
+                    CreatedAt = now,
+                    UpdatedAt = now
+                });
+            }
+            anime.UpdatedAt = now;
+            await _dbContext.SaveChangesAsync();
+            await Task.Delay(800);
+        }
+        _logger.LogInformation("Skipped animes: {SkippedAnimes}", string.Join(", ", skippedAnimes));
     }
 
     private async Task ProcessDbAnimes()

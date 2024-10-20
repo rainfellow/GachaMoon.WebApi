@@ -59,5 +59,21 @@
             "console": "internalConsole",
             "stopAtEntry": false
         },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
+            "name": "AMQ Scrapper",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_amq_scrapper",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/Robots/GachaMoon.Robots.SongsDataParser/bin/Debug/net8.0/GachaMoon.Robots.SongsDataParser.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Robots/GachaMoon.Robots.SongsDataParser",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
     ]
 }

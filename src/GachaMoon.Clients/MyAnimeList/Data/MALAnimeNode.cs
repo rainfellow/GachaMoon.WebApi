@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace GachaMoon.Clients.AnimeList.Data;
+namespace GachaMoon.Clients.MyAnimeList.Data;
 public record MALAnimeNode
 {
     public int Id { get; set; } = default!;

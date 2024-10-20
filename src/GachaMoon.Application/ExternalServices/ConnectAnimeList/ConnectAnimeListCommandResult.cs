@@ -1,7 +1,7 @@
 
-namespace GachaMoon.Application.ExternalServices.ConnectExternalService;
+namespace GachaMoon.Application.ExternalServices.ConnectAnimeList;
 
-public record ConnectExternalServiceCommandResult()
+public record ConnectAnimeListCommandResult()
 {
     public string ExternalServiceUserId { get; init; } = default!;
     public int AnimeCount { get; init; } = default!;
